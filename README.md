@@ -2,7 +2,7 @@
 
 # Description
 
-This tool provides you a fast method to convert models between eight Left 4 Dead 2 survivors.
+This tool provides you a fast method to convert models among eight Left 4 Dead 2 survivors.
 
 ![](https://github.com/TwentyCat/l4d2_survivors_converter/blob/main/git_screenshots/screen.png)
 
