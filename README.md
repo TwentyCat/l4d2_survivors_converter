@@ -45,7 +45,7 @@ Windows 7, 8, 10, 11 and above, x64 based.
 2. Do not modify the structure and app files of the tool, unless you know what to do.
 3. The AutoPlacing.bat can only pick one character from Nick to Francis inside a VPK, if the VPK contains multiple characters.
 4. The survivor will be in T-pose when it doesn't match any animations. This tool also contains a set of new animation for T-posing. You can replace SMDs in App\Survivors\ANIMS with SMDs in *App\Survivors\NEWANIMS*, and *App\Survivors\TANIMS* for rollback.
-5. Please re-download this tool when you encounter errors cause by the tools itself.
+5. Please re-download this tool when you encounter errors caused by the tools itself.
 
 
 
