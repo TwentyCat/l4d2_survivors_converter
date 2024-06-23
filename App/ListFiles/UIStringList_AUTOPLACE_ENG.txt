@@ -1,0 +1,34 @@
+;Version
+versionDate=June 23, 2024
+;Screen_Welcome
+uiWelcomeTitle=Auto Placing (%versionDate%)
+uiWelcome0=	To use this tool, it will perform cleanup first.
+uiWelcome1=	The VPK file should contain only one character, e.g "Chocola for Eiils", not "Nekopara for L4D2 survivors".
+uiWelcome2=	If the VPK contains multiple characters, this tool will prefer using "Nick", till "Francis",
+uiWelcome3=	and will produce unnecessary textures in each output.
+uiWelcome4=	Press any key twice to perform cleanup...
+uiWelcome5=	Press again...
+;
+;AutoPlacingToolStart
+uiPlacingTool0=	- Processing, please wait...
+;
+;CheckFailScreen
+uiFailedReason0=	- Do not run this BAT directly. 
+uiFailedReason1=	- Dragged file is not a VPK file!
+uiFailedReason2=	- Tool files are corrupted, please re-download this tool.
+uiFailedReason3=	- Dragged file is occupied by another process, please close it.
+uiFailed0=	Press any key to exit...
+;
+;ProcessFailScreen
+uiProcFailedReason0=	- Portraits are not detected. Please place them manually.
+uiProcFailedReason1=	- Survivor model is not detected. Please place it manually.
+uiProcFailedReason2=	- Weapon model is not detected. Please place it manually.
+uiProcFailedReason3=	- This addon may contains encrypted models, which can not be handled by this tool.
+uiProcFailed0=	Start COMPILE manually after you have resolved errors.
+uiProcFailed1=	- Dragged VPK contains no player model.
+uiProcFailed2=	Press any key to exit...
+;
+;ProcessCompleteScreen
+uiProcComplete0=	- Finished. Would you like to COMPILE now?
+uiProcComplete1=	Detected animation: %oriAnims_info%. If the animation is incorrect, please make it correct in CONFIG page.
+uiProcComplete2=	Press any key to start COMPILE, or close the window...

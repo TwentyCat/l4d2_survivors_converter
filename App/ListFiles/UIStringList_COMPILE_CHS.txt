@@ -1,0 +1,110 @@
+;Version
+version=2.4.4
+versionDate=20240623
+versionBin=20240605版
+versionNekoMDL=1.4.0
+;Generate Information
+uiGInfo0=待定
+uiGInfo1=尼克 Nick
+uiGInfo2=罗雪儿 Rochelle
+uiGInfo3=教练 Coach
+uiGInfo4=埃利斯 Ellis
+uiGInfo5=比尔 Bill
+uiGInfo6=佐伊 Zoey
+uiGInfo7=弗朗西斯 Francis
+uiGInfo8=路易斯 Louis
+uiGInfo9=NekoMDL %versionNekoMDL% by Starfelll（space.bilibili.com/644686972）
+uiGInfo10=游戏原版（%versionBin%）
+;Screen_Welcome
+uiWelcomeTitle=8人组转换工具 %version% by 20Cat（space.bilibili.com/5096979）本工具完全免费，禁止发布至别处或商用！【%versionDate%版，NekoMDL %versionNekoMDL%】
+uiWelcome0=	欢迎使用！使用前，请先阅读教程，设置好以下参数，并确保贴图、头像、模型SMD等文件已经放置好！
+uiWelcome1=	人物名称：	“%charName%”
+uiWelcome2=	人物动作：	%oriAnims_info%
+uiWelcome3=	转换角色：	%enable_num%个：%enable_info_line1%%enable_info_line2%
+uiWelcome4=	编译工具：	%bin_info%
+uiWelcome5=	【0】进入配置页面
+uiWelcome6=				【！！！模型版权提示！！！】
+uiWelcome7=	如果转换的 MOD，或模型所有权不属于你本人，并且你想要将成品公开到网上，或传播给他人，请务必征得原作者同意！
+uiWelcome8=	本工具作者不为版权违规者承担任何风险，造成的任何后果由你承担。
+uiWelcome9=	若以上信息没有问题并已知悉版权的重要性，请按任意键开始编译...
+uiWelcome10=输入数字0并回车进入配置，或者直接回车开始编译：
+;
+;Screen_Config
+uiConfigTitle=配置模式
+uiConfig0=	选择人物动作：		选择转换角色：		选择编译工具：
+uiConfig1=	【11】Nick动作		【21】切换Nick		【41】NekoMDL（%versionNekoMDL%）
+uiConfig2=	【12】Rochelle动作	【22】切换Rochelle	【42】游戏原版（%versionBin%）
+uiConfig3=	【13】Coach动作		【23】切换Coach
+uiConfig4=	【14】Ellis动作		【24】切换Ellis
+uiConfig5=	【15】Bill动作		【25】切换Bill
+uiConfig6=	【16】Zoey动作		【26】切换Zoey
+uiConfig7=	【17】Louis动作		【27】切换Louis
+uiConfig8=	【18】Francis动作	【28】切换Francis
+uiConfig9=				【30】全部选择
+uiConfig10=				【31】全部取消
+uiConfig11=	【提示】请修改人物名！
+uiConfig12=	人物名称：	“%charName%”
+uiConfig13=	【提示】请指定人物动作！
+uiConfig14=	人物动作：	%oriAnims_info%
+uiConfig15=	【提示】请至少选择一个转换角色！
+uiConfig16=	转换角色：	%enable_num%个：%enable_info_line1%%enable_info_line2%
+uiConfig17=	编译工具：	NekoMDL
+uiConfig18=	编译工具：	游戏原版
+uiConfig19=	【1】编辑人物名称
+uiConfig20=	【0】保存，回到开始界面
+uiConfig21=输入数字并回车：
+uiConfig22=	输入人物名称并回车。为了避免奇奇怪怪的问题，最好是纯英文数字。空格会被自动移除，请勿输入星号、斜杠等特殊字符！
+uiConfig23=请输入（留空返回）：
+uiConfig24=请输入：
+uiConfig25=未定义
+;
+;Process_Compile
+uiCompileTitle0=编译中...
+uiCompileTitle1=编译中... 剩余编译进程 %threadCount% 个...
+uiCompile0=	● 正在处理 %currentChar% 人物 ...
+uiCompile1=	● 编译期间会占用大量 CPU，请暂时不动电脑，耐心等待...
+;
+;CheckFailed
+uiFailedTitle=错误...
+uiFailedReason0=	× 人物名称没写！
+uiFailedReason1=	× 人物动作名有误！
+uiFailedReason2=	× 没有指定要转换哪些人物！
+uiFailedReason3=	× 工具文件损坏！【请重新解压工具压缩包】
+uiFailedReason4=	× 头像文件缺失！【请检查是否放好了相关文件】
+uiFailedReason4_1=	头像有三个文件，s 代表正常头像，i 代表倒地头像，l 表示大厅头像。
+uiFailedReason5=	× 描述文件缺失！
+uiFailedReason5_1=	工具运行时最好不要操作电脑哦。
+uiFailedReason6=	× 人物身体模型编译失败！
+uiFailedReason6_1=	请检查 Survivors 文件夹里的 SMD、VRD、VTA 文件是否放好，1_main.qci 里的参数是否正确...
+uiFailedReason6_2=	工具内 LOGS 文件夹内可查阅完整错误日志。
+uiFailedReason7=	× 人物手臂模型编译失败！
+uiFailedReason7_1=	请检查 Weapons 文件夹里的 SMD 文件是否放好、1_main.qci 里的参数是否正确...
+uiFailedReason7_2=	工具内 LOGS 文件夹内可查阅完整错误日志。
+uiFailedReason8=	× 人物身体模型编译文件似乎没有放好！【请检查是否放好了相关文件】
+uiFailedReason9=	× 人物手臂模型编译文件似乎没有放好！【请检查是否放好了相关文件】
+uiFailed0=	按任意键重试...
+uiFailed1=	按任意键关闭窗口...
+uiFailed2=输入数字1并回车，或直接回车：
+;
+;End
+uiEndTitle=编译成功...
+uiEnd0=	√ 编译完成！
+uiEnd1=	成品文件存放在 OUTPUTS 文件夹里，后续打包步骤请自行完成。
+uiEnd2=	按任意键关闭窗口...
+uiEnd3=	√ 编译完成，但有报错...
+uiEnd4=	工具内 LOGS 文件夹内可查阅完整错误日志。
+uiEnd5=	【1】显示错误日志
+uiEnd6=	【回车】退出
+uiEnd7=输入数字1并回车，或直接回车：
+;
+;ClearMode
+uiClearTitle=清理模式
+uiClear0=	是否确认清理工具？将会清空临时编译文件、错误日志。
+uiClear1=	按两次任意键开始清理...
+uiClear2=	再按一次开始清理...
+;
+;ResetMode
+uiResetTitle=重置模式
+uiReset0=	是否确认重置工具？将会清空导出成品、工具配置、临时编译文件、错误日志。
+uiReset1=	按两次任意键开始重置...
+uiReset2=	再按一次开始重置...

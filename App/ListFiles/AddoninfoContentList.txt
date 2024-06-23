@@ -1,0 +1,18 @@
+"AddonInfo"
+{
+;	"addontitle"	""
+	"addonDescription"	""
+	"addonSteamAppID"	"550"
+	"addonversion"	""
+	"addontagline"	""
+	"addonauthor"	""
+	"addonauthorSteamID"	""
+	"addonURL0"	""
+	"addonContent_Map"	"0"
+	"addonContent_Skin"	"0"
+	"addonContent_Weapon"	"0"
+	"addonContent_BossInfected"	"0"
+	"addonContent_Survivor"	"1"
+	"addonContent_Sound"	"0"
+	"addonContent_Script"	"0"
+}

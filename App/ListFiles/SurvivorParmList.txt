@@ -1,0 +1,10 @@
+;currentChar,light,p1,p2,p3,m1,m2
+Nick,0,s_panel_gambler,s_panel_gambler_incap,s_panel_lobby_gambler,survivor_gambler,v_arms_gambler_new
+Rochelle,0,s_panel_producer,s_panel_producer_incap,s_panel_lobby_producer,survivor_producer,v_arms_producer_new
+Coach,0,s_panel_coach,s_panel_coach_incap,s_panel_lobby_coach,survivor_coach,v_arms_coach_new
+Ellis,0,s_panel_mechanic,s_panel_mechanic_incap,s_panel_lobby_mechanic,survivor_mechanic,v_arms_mechanic_new
+Bill,0,s_panel_namvet,s_panel_namvet_incap,select_bill,survivor_namvet,v_arms_bill
+Zoey,1,s_panel_teenangst,s_panel_teenangst_incap,select_zoey,survivor_teenangst,v_arms_zoey
+Louis,0,s_panel_manager,s_panel_manager_incap,select_louis,survivor_manager,v_arms_louis
+Francis,1,s_panel_biker,s_panel_biker_incap,select_francis,survivor_biker,v_arms_francis
+end

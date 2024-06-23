@@ -1,0 +1,8 @@
+models\weapons\arms\v_arms_gambler_new.mdl
+models\weapons\arms\v_arms_coach_new.mdl
+models\weapons\arms\v_arms_producer_new.mdl
+models\weapons\arms\v_arms_mechanic_new.mdl
+models\weapons\arms\v_arms_bill.mdl
+models\weapons\arms\v_arms_zoey.mdl
+models\weapons\arms\v_arms_louis.mdl
+models\weapons\arms\v_arms_francis.mdl
