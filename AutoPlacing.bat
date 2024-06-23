@@ -1,0 +1,10 @@
+pushd %~dp0
+set "file=%1"
+set "fileExt=%~x1"
+set "fileNameWithExt=%~nx1"
+set "toolPath=%~dp0"
+set "vpkName=%~n1"
+set "vpkPath=%~dp1"
+set "vpkPath=%vpkPath:~0,-1%"
+set "lang=eng"
+call ".\App\AUTOPLACE.bat"

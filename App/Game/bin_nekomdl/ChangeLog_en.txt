@@ -1,0 +1,204 @@
+    ,--.  ,--.       ,--.                       ,--.,--. 
+    |  ,'.|  | ,---. |  |,-. ,---. ,--,--,--. ,-|  ||  |   ／l、    
+    |  |' '  || .-. :|     /| .-. ||        |' .-. ||  | （ﾟ､ ｡ ７   
+    |  | `   |\   --.|  \  \' '-' '|  |  |  |\ `-' ||  |   l  ~ヽ   
+    `--'  `--' `----'`--'`--'`---' `--`--`--' `---' `--'   じしf_,)ノ
+# by: starfelll
+# https://steamcommunity.com/sharedfiles/filedetails/?id=3142607978
+
+It is recommended to use the -nvtristrip command line parameter to compile the final published model.  
+The default Forsyth algorithm does not optimize the number of vertices.
+
+[h2]Changelog[/h2]
+
+[h3]v1.4.0[/h3]
+[list]
+[*]Upgrading to 64-bit.
+[*]The program is completely independent and no longer depends on the external vphysics.dll.
+[*]Floating point numbers support scientific notation.
+[*]Fixed the problem that after using $PushD, the source file with the absolute path could not be read normally.
+[*]$IF macro support || operator.
+[/list]
+
+[h3]v1.3.4[/h3]
+[list]
+[*]new $Animation option: NoBoneRealign
+[/list]
+
+[h3]v1.3.3[/h3]
+[list] 
+[*]Fix $NekoDriverBone not supporting bones with “.” bone names
+[*]Fix not recognizing source files with uppercase suffixes in qc.
+[/list]
+
+[h3]v1.3.2[/h3]
+[list] 
+[*]Adjust the maximum number of materials to 128。
+[*]Use UTF8 encoding.
+[/list]
+
+[h3]v1.3.1[/h3]
+[list] 
+[*]Fix a bug in $DefineVariable.
+[*]Fix a bug in $EndIF.
+[/list]
+
+[h3]v1.3.0[/h3]
+[list] 
+[*]The $if command supports '==' and '!=' expressions.
+[*]Fixed unused bones not collapsing.
+[/list]
+
+[h3]v1.2.0[/h3]
+[list] 
+[*]When the obj model cannot find the material texture, use the material name instead of "debugempty".
+[*]obj model $Scale support.
+[*]Enter standalone mode when the command line parameter does not include "-game".
+[*]Added qc commands: $if,$ifdef,$elif,$eldef,$else,$endif,$UndefineVariable,$Msg.
+[*]Supports defining variables through command line parameters, usage: [-D<variable_name> <value>]
+[/list]
+
+[h3]v1.1.0[/h3]
+[list] 
+[*]Added fbx animation support.
+[/list]
+
+[h3]v1.0.3[/h3]
+[list] 
+[*]Added "debris" as a valid option for $Contents.
+[/list]
+
+[h3]v1.0.2[/h3]
+[list]
+[*]Fixed: Will not collapse bones with vertex weights.
+[*]Changed: Bones that have only been used by $Attachment will not collapse.
+[/list]
+
+[h3]v1.0.1[/h3]
+[list]
+[*]Changed: Do not collapse bones with no vertex weights used by $Attachment and $Bonemerge.
+[/list]
+
+[h3]v1.0[/h3]
+[list]
+[*]Added: $NekoModel flex related parameters for FBX and DMX support. The usage can be found in the example qc.
+[*]Added: Fallback to use FBXSDK to parse fbx files, upgrade sdk version to 2020.3.2.
+[*]Added: Use the libraries required for static linking, no more dlls. note that when compiling models with $CollisionJoints, need to load vphysics.dll in the game directory.
+[*]Added: Does not compare sequence differences with the mdl file to be overwritten. This can be turned on with the command line parameter [-checksequenceorder].
+[*]Added: Hot reloading hlmv without checking if the title bar is the same as $ModelName.
+[/list]
+
+[h3]v0.9.4[/h3]
+[list]
+[*]Fixed: When the driver bone of $NekoDriverBone is the parent of a procedural bone, the angle calculation of the procedural bone is incorrect.
+[*]Added: New command line parameter: "[-reloadhlmv]", which will hot-reload HLMV after successful compilation.
+[/list]
+
+[h3]v0.9.3[/h3]
+[list]
+[*]Added: New command line parameter "[-blender <path>]", tells the compiler the directory where the Blender executable is located.
+[*]Changed: Call Blender to convert FBX to glTF. FBX now has the same functions as glTF. No longer dependent on fbxsdk.
+[/list]
+
+[h3]v0.9.2[/h3]
+[list]
+[*]Added command line parameter [-maxbones <number>] to set the maximum number of bones in the compiled model
+[/list]
+
+[h3]v0.9.0 ~ v0.9.1[/h3]
+[list]
+[*]Changed: Modify the file buffer size in other places, now the entire model can have up to 1 million triangles.
+[*]Fixed: When automatically splitting a model with too high number of vertices, the split part will become an empty model.
+[*]Added: support for glTF unskinned meshes.
+[*]Fixed: glTF does not support $lod command.
+[/list]
+
+[h3]v0.8.0[/h3]
+[list]
+[*]Changed: Increase the buffer size for writing files to prevent high-polygon models from causing memory overflow and crashes.
+[*]Changed: New icon
+[/list]
+
+[h3]v0.7.0[/h3]
+[list]
+[*]Added: $NekoModel supports eyeball and eyelid options
+[*]Changed: The maximum number of cmds for animation is 128
+[*]Added: gltf mesh $scale support
+[*]Added: Apply $scale and animation parameter scale when reading animation parameter "forceboneposrot"
+[*]Added: $scale support for dmxeyelid, eyelid, eyeball
+[/list]
+
+[h3]v0.6.2[/h3]
+[list]
+[*]Fixed: Parameter "-outdir" does not support relative paths
+[/list]
+
+[h3]v0.6.1[/h3]
+[list]
+[*]Added: command line parameters "-modelname"&"-outdir"
+[*]Added: glb morph targer(shape key) support
+[/list]
+
+[h3]v0.6.0[/h3]
+[list]
+[*]Added: support gltf morph targer, glb not supported yet
+[*]Added: new qc command "$NekoModel", support gltf using flex
+[*]Changed: $hbox does not write information about the capsule
+[*]Fixed: "noautodmxrules" causes error report
+[*]Changed: $NekoDriverBone logic, supported bone collapse
+[/list]
+
+[h3]v0.5.1[/h3]
+[list]
+[*]Fixed: "$NekoDriverBone" position calculation error
+[*]Fixed: When loading mdl in the game, the console reported an error that Keyvalues was missing "{"
+[/list]
+
+[h3]v0.5.0[/h3]
+[list]
+[*]Added: "$forcecapsules", the compiler will skip processing this command to prevent errors.
+[*]Added: ".gltf" & ".glb" format support, flex or animation are not supported yet.
+[code]
+         The blender process uses the glb format the fastest. The following is a simple test:
+         (136908 triangular face, divided into four parts, no flex)
+         Export: glb 12.2s | dmx 65.8s | smd 55.7s
+         Compile: glb 1.15s | dmx 1.73s | smd 17.72s
+[/code]
+[/list]
+
+[h3]v0.4.1[/h3]
+[list]
+[*]Adjusted: Maximum "$Animation" is 4096
+[/list]
+
+[h3]v0.4.0[/h3]
+[list]
+[*]Changed: parameter "-usenvtristrip" changed to "-nvtristrip"
+[*]Fixed: $Keyvalues error reported in the console when loading mdl in the game
+[*]Added: new qc command "$NekoDriverBone"
+[/list]
+
+[h3]v0.3.1[/h3]
+[list]
+[*]Added: FBX format support (need to add a line of code "$prefer_fbx" to QC before use)
+[*]Added: Use Forsyth's model optimization algorithm (faster) instead of the default Nvidia algorithm (the parameter -usenvtristrip uses the old algorithm, slower)
+[*]Changed: The program uses 32-bit and turns on large memory support to ensure compatibility
+[*]Fixed: Unable to compile collision mesh
+[*]Changed: compatible with model 15 dmx (please use model 18 for new dmx export)
+[*]Adjusted: maximum Sequences is 2048
+[*]Adjusted: Lower the maximum material limit to 64 to save memory
+[*]Fixed: some bugs
+[*]Changed: the message printed by the console
+[*]Changed: the compilation time is printed when the compilation is completed
+[*]Changed: the information starting with "CDynamicFunction:" is not printed
+[*]Fixed: Automatic splitting of meshes with an excess number of vertices causing compilation failure
+[/list]
+
+[h3]v0.2-dev[/h3]
+[list]
+[*]Adjusted: Bone weight culling lower than 5% is reduced to 0.01%
+[*]Adjusted: Maximum vertices is 655360
+[*]Adjusted: Maximum faces is 218,453
+[*]Adjusted: Maximum materials is 128
+[*]Adjusted: Maximum bones is 129
+[/list]

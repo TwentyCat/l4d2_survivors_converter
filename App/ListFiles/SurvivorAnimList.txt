@@ -1,0 +1,10 @@
+;anim_xxx,oriAnims,oriAnims_info
+anim_gambler,nick,Nick
+anim_producer,rochelle,Rochelle
+anim_coach,coach,Coach
+anim_mechanic,ellis,Ellis
+anim_namvet,bill,Bill
+anim_teenangst,zoey,Zoey
+anim_louis_animloader,louis,Louis
+anim_biker,francis,Francis
+anim_biker_animloader,francis,Francis

@@ -1,0 +1,10 @@
+models\survivors\survivor_gambler.mdl
+models\survivors\survivor_producer.mdl
+models\survivors\survivor_coach.mdl
+models\survivors\survivor_mechanic.mdl
+models\survivors\survivor_namvet.mdl
+models\survivors\survivor_teenangst.mdl
+models\survivors\survivor_teenangst_light.mdl
+models\survivors\survivor_manager.mdl
+models\survivors\survivor_biker.mdl
+models\survivors\survivor_biker_light.mdl

@@ -1,0 +1,110 @@
+;Version
+version=2.4.4
+versionDate=June 23, 2024
+versionBin=June 5, 2024
+versionNekoMDL=1.4.0
+;Generate Information
+uiGInfo0=NULL
+uiGInfo1=Nick
+uiGInfo2=Rochelle
+uiGInfo3=Coach
+uiGInfo4=Ellis
+uiGInfo5=Bill
+uiGInfo6=Zoey
+uiGInfo7=Francis
+uiGInfo8=Louis
+uiGInfo9=NekoMDL %versionNekoMDL% by Starfelll  L4D2 Workshop Item ID: 3142607978
+uiGInfo10=L4D2-AT %versionBin%
+;Screen_Welcome
+uiWelcomeTitle=L4D2 Survivors Converter %version% by 20Cat steamcommunity.com/id/20cat  FREE, NO COMERCIAL USE  Verion: %versionDate%
+uiWelcome0=	Welcome. Please ensure that necessary files are in place before you start compile.
+uiWelcome1=	Name:		"%charName%"
+uiWelcome2=	Animation:	%oriAnims_info%
+uiWelcome3=	Characters:	Num:%enable_num% : %enable_info_line1%%enable_info_line2%
+uiWelcome4=	Compiler:	%bin_info%
+uiWelcome5=	0 - CONFIG Page
+uiWelcome6=				ATTENTION: Copyright Issue
+uiWelcome7=	Do not upload or publish ANY addons created by this tool to ANY website, unless you're the owner of that containing model, or granted permission from the original author. After publishment, you must obey relevant user agreements of website. Creator of this tool is not responsible for your illegal behaviour. 
+uiWelcome8=	 
+uiWelcome9=	Start compile if you agree the terms above.
+uiWelcome10=Type 0 and Enter: CONFIG Page, or Enter directly: Start compile: 
+;
+;Screen_Config
+uiConfigTitle=CONFIG Page
+uiConfig0=	Choose Animation:	Toggle Characters:	Choose Compiler:
+uiConfig1=	11 - Nick		21 - Nick		41 - NekoMDL %versionNekoMDL%
+uiConfig2=	12 - Rochelle		22 - Rochelle		42 - L4D2-AT %versionBin%
+uiConfig3=	13 - Coach		23 - Coach
+uiConfig4=	14 - Ellis		24 - Ellis
+uiConfig5=	15 - Bill		25 - Bill
+uiConfig6=	16 - Zoey		26 - Zoey
+uiConfig7=	17 - Louis		27 - Louis
+uiConfig8=	18 - Francis		28 - Francis
+uiConfig9=				30 - Select All
+uiConfig10=				31 - Clear All
+uiConfig11=	Info: Please specify Character Name.
+uiConfig12=	Name:	"%charName%"
+uiConfig13=	Info: Please specify Animation.
+uiConfig14=	Animation:	%oriAnims_info%
+uiConfig15=	Info: Please specify at lease one character.
+uiConfig16=	Character:	Num: %enable_num% : %enable_info_line1%%enable_info_line2%
+uiConfig17=	Compiler:	NekoMDL
+uiConfig18=	Compiler:	L4D2-AT
+uiConfig19=	1 - Modify Character Name
+uiConfig20=	0 - Save and exit CONFIG
+uiConfig21=Select number and Enter: 
+uiConfig22=	Input your Character Name here and Enter. Do not input special characters, use alphanumeric strings instead.
+uiConfig23=Input and Enter to Save: 
+uiConfig24=Input and Enter: 
+uiConfig25=Undefined
+;
+;Process_Compile
+uiCompileTitle0=Compiling...
+uiCompileTitle1=Compiling... %threadCount% processes remaining...
+uiCompile0=	- Processing %currentChar%...
+uiCompile1=	- May cause high CPU usage, please wait...
+;
+;CheckFailed
+uiFailedTitle=Error.
+uiFailedReason0=	- Character Name is not defined.
+uiFailedReason1=	- Animation is not correct.
+uiFailedReason2=	- No character needs to be converted.
+uiFailedReason3=	- Tool files are corrupted, please re-download this tool.
+uiFailedReason4=	- Portraits are missing. Please place them manually.
+uiFailedReason4_1=	There should be 3 portrait image. "s" means Panel, "i" means Incap, "l" means Lobby.
+uiFailedReason5=	- Addoninfo is missing. Tool encounters errors
+uiFailedReason5_1=	Please try again.
+uiFailedReason6=	- Failed to compile Survivor Model.
+uiFailedReason6_1=	Make sure that you have made necessary files in place, and also check up the 1_main.qci.
+uiFailedReason6_2=	You can refer to error logs in 6_LOGS folder.
+uiFailedReason7=	- Failed to compile Weapon Model.
+uiFailedReason7_1=	Make sure that you have made necessary files in place, and also check up the 1_main.qci.
+uiFailedReason7_2=	You can refer to error logs in 6_LOGS folder.
+uiFailedReason8=	- Compile files for Survivor Model are corrupted. Make sure that necessary files are in place.
+uiFailedReason9=	- Compile files for Weapon Model are corrupted. Make sure that necessary files are in place.
+uiFailed0=	Press any key to Retry...
+uiFailed1=	Press any key to exit...
+uiFailed2=Type 1 and Enter, or Enter directly: 
+;
+;End
+uiEndTitle=Success...
+uiEnd0=	- Finished.
+uiEnd1=	The outputs locate in 5_OUTPUT folder, please pack it to VPK manually.
+uiEnd2=	Press any key to exit...
+uiEnd3=	- Finished, but with errors.
+uiEnd4=	You can refer to error logs in 6_LOGS folder.
+uiEnd5=	1 - Show error log
+uiEnd6=	Enter - Exit
+uiEnd7=Type 1 and Enter, or Enter directly: 
+;
+;ClearMode
+uiClearTitle=Clear Mode
+uiClear0=	Are you sure to perform cleanup? All compiling files and logs will be deleted...
+uiClear1=	Press any key twice to perform cleanup...
+uiClear2=	Press again...
+;
+;ResetMode
+uiResetTitle=Reset Mode
+uiReset0=	Are you sure to reset? All compiling files, configs, outputs, logs will be deleted...
+uiReset1=	Press any key twice to reset...
+uiReset2=	Press again...
