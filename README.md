@@ -1,10 +1,10 @@
-![](https://github.com/TwentyCat/l4d2_survivors_converter/blob/main/git_screenshots/cover.jpg)
+![](https://github.com/TwentyCat/l4d2_survivors_converter/blob/main/Screenshots/cover.jpg)
 
 # Description
 
 This tool provides you a fast method to convert models between Eight Left 4 Dead 2 Survivors.
 
-![](https://github.com/TwentyCat/l4d2_survivors_converter/blob/main/git_screenshots/screen.png)
+![](https://github.com/TwentyCat/l4d2_survivors_converter/blob/main/Screenshots/screen.png)
 
 
 
@@ -53,7 +53,7 @@ Windows 7, 8, 10, 11 and above, x64 based.
 
 # Copyright
 
-- BATs by 20Cat [https://steamcommunity.com/id/20cat](https://steamcommunity.com/id/20cat)
+- BATs by 20Cat [https://steamcommunity.com/id/20cat](https://steamcommunity.com/id/20cat) Github: https://github.com/TwentyCat/l4d2_survivors_converter
 
 - NekoMDL Compiler by Starfelll https://steamcommunity.com/sharedfiles/filedetails/?id=3142607978
 - Crowbar Commandline by mrglaster https://github.com/mrglaster/Source-models-decompiler-cmd (Modified default configs)
@@ -93,7 +93,7 @@ Windows 7, 8, 10, 11 and above, x64 based.
  - Output to: "Subfolder (of MDL input)", "dec_0.74"
  - Re-Create Files: "Group into QCI files": Checked
 
-![](https://github.com/TwentyCat/l4d2_survivors_converter/blob/main/git_screenshots/crowbar_settings.png)
+![](https://github.com/TwentyCat/l4d2_survivors_converter/blob/main/Screenshots/crowbar_settings.png)
 
 2. Unpack VPK using vpk.exe or with other method.
 3. Go to *YourAddon\materials\vgui* , rename 3 VTF files (Panel, Incap, Lobby portraits) to s.vtf, i.vtf, l.vtf respectively.
