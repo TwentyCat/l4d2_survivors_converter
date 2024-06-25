@@ -163,16 +163,16 @@ echo,%uiWelcome7%
 echo,%uiWelcome8%
 echo,&echo,&echo,
 echo,%uiWelcome9%
-echo,&echo,&echo,
-set "userInput=null"
-set /p "userInput=%uiWelcome10%"
-if "%userInput%" == "0" (set "config=1"&goto UI_Config)
-goto Process_Start
+echo,&echo,
+echo,%uiWelcome10%
+choice /n /c AD
+if "%errorlevel%" == "1" (set "config=1"&goto UI_Config)
+if "%errorlevel%" == "2" (goto Process_Start)
 
 :UI_Config
 cls&color 0B&title %uiConfigTitle%
 echo,&echo,
-if "%charName%" == "%uiGInfo0%" (color 0C&echo,%uiConfig11%) else (call echo,%uiConfig12%)
+if "%charName%" == "%uiGInfo0%" (color 0C&call echo,%uiConfig11%) else (call echo,%uiConfig12%)
 echo,
 if "%oriAnims_info%" == "null" (color 0C&echo,%uiConfig13%) else (call echo,%uiConfig14%)
 echo,
@@ -196,58 +196,60 @@ echo,
 echo,%uiConfig9%
 echo,%uiConfig10%
 echo,
-echo,%uiConfig19%
+echo,
 echo,%uiConfig20%
 echo,
+echo,%uiConfig21%
 set "config=1"
-set "userInput=null"
-set /p "userInput=%uiConfig21%"
-if "%userInput%" == "1" (goto UI_InputCharName)
-if "%userInput%" == "0" (set "config=0")
-if "%userInput%" == "11" (set "oriAnims=nick")
-if "%userInput%" == "12" (set "oriAnims=rochelle")
-if "%userInput%" == "13" (set "oriAnims=coach")
-if "%userInput%" == "14" (set "oriAnims=ellis")
-if "%userInput%" == "15" (set "oriAnims=bill")
-if "%userInput%" == "16" (set "oriAnims=zoey")
-if "%userInput%" == "17" (set "oriAnims=louis")
-if "%userInput%" == "18" (set "oriAnims=francis")
-if "%userInput%" == "21" (
+choice /n /c 0123456789ASDNRCEBZLF
+if "%errorlevel%" == "1" (set "enable_Nick=0"&set "enable_Rochelle=0"&set "enable_Coach=0"&set "enable_Ellis=0"&set "enable_Bill=0"&set "enable_Zoey=0"&set "enable_Louis=0"&set "enable_Francis=0")
+if "%errorlevel%" == "2" (
 	if "%enable_Nick%" == "1" (set "enable_Nick=0")
 	if "%enable_Nick%" == "0" (set "enable_Nick=1")
 	)
-if "%userInput%" == "22" (
+if "%errorlevel%" == "3" (
 	if "%enable_Rochelle%" == "1" (set "enable_Rochelle=0")
 	if "%enable_Rochelle%" == "0" (set "enable_Rochelle=1")
 	)
-if "%userInput%" == "23" (
+if "%errorlevel%" == "4" (
 	if "%enable_Coach%" == "1" (set "enable_Coach=0")
 	if "%enable_Coach%" == "0" (set "enable_Coach=1")
 	)
-if "%userInput%" == "24" (
+if "%errorlevel%" == "5" (
 	if "%enable_Ellis%" == "1" (set "enable_Ellis=0")
 	if "%enable_Ellis%" == "0" (set "enable_Ellis=1")
 	)
-if "%userInput%" == "25" (
+if "%errorlevel%" == "6" (
 	if "%enable_Bill%" == "1" (set "enable_Bill=0")
 	if "%enable_Bill%" == "0" (set "enable_Bill=1")
 	)
-if "%userInput%" == "26" (
+if "%errorlevel%" == "7" (
 	if "%enable_Zoey%" == "1" (set "enable_Zoey=0")
 	if "%enable_Zoey%" == "0" (set "enable_Zoey=1")
 	)
-if "%userInput%" == "27" (
+if "%errorlevel%" == "8" (
 	if "%enable_Louis%" == "1" (set "enable_Louis=0")
 	if "%enable_Louis%" == "0" (set "enable_Louis=1")
 	)
-if "%userInput%" == "28" (
+if "%errorlevel%" == "9" (
 	if "%enable_Francis%" == "1" (set "enable_Francis=0")
 	if "%enable_Francis%" == "0" (set "enable_Francis=1")
 	)
-if "%userInput%" == "30" (set "enable_Nick=1"&set "enable_Rochelle=1"&set "enable_Coach=1"&set "enable_Ellis=1"&set "enable_Bill=1"&set "enable_Zoey=1"&set "enable_Louis=1"&set "enable_Francis=1")
-if "%userInput%" == "31" (set "enable_Nick=0"&set "enable_Rochelle=0"&set "enable_Coach=0"&set "enable_Ellis=0"&set "enable_Bill=0"&set "enable_Zoey=0"&set "enable_Louis=0"&set "enable_Francis=0")
-if "%userInput%" == "41" (set "enable_nekomdl=1")
-if "%userInput%" == "42" (set "enable_nekomdl=0")
+if "%errorlevel%" == "10" (set "enable_Nick=1"&set "enable_Rochelle=1"&set "enable_Coach=1"&set "enable_Ellis=1"&set "enable_Bill=1"&set "enable_Zoey=1"&set "enable_Louis=1"&set "enable_Francis=1")
+if "%errorlevel%" == "11" (set "config=0")
+if "%errorlevel%" == "12" (goto UI_InputCharName)
+if "%errorlevel%" == "13" (
+	if "%enable_nekomdl%" == "1" (set "enable_nekomdl=0")
+	if "%enable_nekomdl%" == "0" (set "enable_nekomdl=1")
+	)
+if "%errorlevel%" == "14" (set "oriAnims=nick")
+if "%errorlevel%" == "15" (set "oriAnims=rochelle")
+if "%errorlevel%" == "16" (set "oriAnims=coach")
+if "%errorlevel%" == "17" (set "oriAnims=ellis")
+if "%errorlevel%" == "18" (set "oriAnims=bill")
+if "%errorlevel%" == "19" (set "oriAnims=zoey")
+if "%errorlevel%" == "20" (set "oriAnims=louis")
+if "%errorlevel%" == "21" (set "oriAnims=francis")
 goto GenerateInformation
 
 :UI_InputCharName
