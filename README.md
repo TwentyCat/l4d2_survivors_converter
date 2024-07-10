@@ -10,23 +10,15 @@
 
 This tool provides you a fast method to convert models among eight Left 4 Dead 2 Survivors.
 
-![](https://github.com/TwentyCat/l4d2_survivors_converter/blob/main/git_screenshots/screen.png)
-
-
-
-
+![screenshot](https://github.com/TwentyCat/l4d2_survivors_converter/blob/main/git_screenshots/screen.png)
 
 # System Requirement
 
 Windows 7, 8, 10, 11 and above, x64 based.
 
-
-
-
-
 # Structure
 
-7 Folders, 4 BATs.
+This tool contains 7 Folders, 4 BATs:
 
 1. Folder *Materials*: Stores materials (portraits not included).
 2. Folder *Portraits*: Stores portraits (other materials not included).
@@ -41,10 +33,6 @@ Windows 7, 8, 10, 11 and above, x64 based.
 10. *PerformReset.bat*: Clear compiling files, including program config and 1_main.qci(s).
 11. *AutoPlacing.bat*: The optional program for automatic extracting and deploying compiling files from a VPK file.
 
-
-
-
-
 # Attention!
 
 1. > ⚠ Do not upload or publish ANY addons created by this tool to ANY website, unless you're the owner of that containing model, or granted permission from the original author. After publishment, you must obey relevant user agreements of website. Creator of this tool is not responsible for your illegal behavior. ⚠
@@ -53,26 +41,18 @@ Windows 7, 8, 10, 11 and above, x64 based.
 4. The survivor will be in T-pose when it doesn't match any animations. This tool also contains a set of new animation for T-posing. You can go inside the App folder, replace *ANIMS* folder with *NEWANIMS* folder, and *TANIMS* folder for rollback.
 5. Please re-download this tool when you encounter errors cause by the tools itself.
 
-
-
-
-
 # Copyright
 
-- BATs by 20Cat [https://steamcommunity.com/id/20cat](https://steamcommunity.com/id/20cat) Github: https://github.com/TwentyCat/l4d2_survivors_converter
-
+- BATs by 20Cat [https://steamcommunity.com/id/20cat](https://steamcommunity.com/id/20cat)
+Github: https://github.com/TwentyCat/l4d2_survivors_converter
 - NekoMDL Compiler by Starfelll https://steamcommunity.com/sharedfiles/filedetails/?id=3142607978
 - Crowbar Commandline by mrglaster (Modified default configs) https://github.com/mrglaster/Source-models-decompiler-cmd
-
-
-
-
 
 # User Guide 1 (Simple, Recommended)
 
 ## Requisites
 
- - Your VPK addon
+ - Your Survivor VPK addon
 
 ## Steps
 
@@ -81,17 +61,13 @@ Windows 7, 8, 10, 11 and above, x64 based.
 3. When finished, you can see outputs in *5_OUTPUT* . Please modify them as you need, and re-pack them with vpk.exe (or with other method).
 4. See error logs in *6_LOGS* , if it failed to compile.
 
-
-
-
-
 # User Guide 2 (Fully Manual)
 
 ## Requisites
 
  - Crowbar 0.74
  - Notepad2 (or other text editor)
- - Your compiling files
+ - Your Survivor VPK addon
 
 ## Steps
 
@@ -99,7 +75,7 @@ Windows 7, 8, 10, 11 and above, x64 based.
  - Output to: "Subfolder (of MDL input)", "dec_0.74"
  - Re-Create Files: "Group into QCI files": Checked
 
-![](https://github.com/TwentyCat/l4d2_survivors_converter/blob/main/git_screenshots/crowbar_settings.png)
+![crowbar_settings](https://github.com/TwentyCat/l4d2_survivors_converter/blob/main/git_screenshots/crowbar_settings.png)
 
 2. Unpack VPK using vpk.exe or with other method.
 3. Go to *YourAddon\materials\vgui* , rename 3 VTF files (Panel, Incap, Lobby portraits) to s.vtf, i.vtf, l.vtf respectively.
@@ -129,7 +105,7 @@ Windows 7, 8, 10, 11 and above, x64 based.
 	$modelname "survivors\survivor_xxx.mdl"
 	```
 	
- - Delete these 4 kinds of relevant lines at the bottom:
+ - Delete these 4 kinds of relevant lines at the bottom. (Also means delete from the next line of the first $weightlist or $ikautoplaylock line, until the end of QC)
 	
 	```c++
 	$animation {xxx}
@@ -138,45 +114,30 @@ Windows 7, 8, 10, 11 and above, x64 based.
 	$includemodel xxx
 	```
 	
-	(Also means delete from the next line of the first $weightlist or $ikautoplaylock line, until the end of QC)
 
-After done, the QC code will be like:
+ - After done, the QC code looks like:
 
-```c++
-// $modelname "survivors/survivor_gambler.mdl"
-// Delete upper codes end from this line
-
-$model "Survivor" "xxx.smd" { ...
+	```c++
+	// $modelname "survivors/survivor_xxx.mdl"
+	// Delete upper codes end from this line
+	
+	$model "Survivor" "xxx.smd" { ...
+		}
+	$bodygroup "xxx" {	...
 	}
-$bodygroup "xxx" {	...
-}
-// other codes in the middle
-// other codes in the middle
-// other codes in the middle
+	// other codes in the middle
+	// other codes in the middle
+	// other codes in the middle
 
-$sectionframes 30 287
-
-$poseparameter "body_pitch" -90 90 loop 360
-$poseparameter "body_yaw" -90 90 loop 360
-$poseparameter "head_pitch" -90 90 loop 360
-$poseparameter "head_yaw" -90 90 loop 360
-
-$ikchain "rhand" "ValveBiped.Bip01_R_Hand" knee 0.707 0.707 0
-$ikchain "lhand" "ValveBiped.Bip01_L_Hand" knee 0.707 0.707 0
-$ikchain "rfoot" "ValveBiped.Bip01_R_Foot" knee 0.707 -0.707 0
-$ikchain "lfoot" "ValveBiped.Bip01_L_Foot" knee 0.707 -0.707 0
-$ikchain "ikclip" "ValveBiped.weapon_bone_Clip" knee 0.707 -0.707 0
-
-$ikautoplaylock "rfoot" 1 0.1
-$ikautoplaylock "lfoot" 1 0.1
-
-// Delete bottom codes start from this line
-
-$weightlist "xxx" {}
-$animation "xxx" "xxx.smd" {fps xxx}
-$includemodel "xxx.mdl"
-```
-
+	$ikautoplaylock "rfoot" 1 0.1
+	$ikautoplaylock "lfoot" 1 0.1
+	
+	// Delete bottom codes start from this line
+	
+	$weightlist "xxx" {}
+	$animation "xxx" "xxx.smd" {fps xxx}
+	$includemodel "xxx.mdl"
+	```
 
 10. Copy the rest of QC contents into *3_Survivors\1_main.qci* and save.
 
@@ -189,17 +150,17 @@ $includemodel "xxx.mdl"
 
 14. Open QC file in *YourAddon\models\weapons\arms\dec_0.74* using Notepad2:
 
-     - Delete these lines at the top:
+ - Delete these lines at the top:
 
-       ```c++
-       // Created by Crowbar 0.7x
-       $modelname "weapons\arms\v_arms_xxx.mdl"
-       ```
+    ```c++
+    // Created by Crowbar 0.7x
+    $modelname "weapons\arms\v_arms_xxx.mdl"
+    ```
 
-     - Delete these $sequence lines at the bottom.
+ - Delete these $sequence lines at the bottom.
 
 
-    After done, the QC code will be like:
+ - After done, the QC code looks like:
 
     ```c++
     // $modelname "weapons\arms\v_arms_xxx.mdl"
@@ -207,7 +168,7 @@ $includemodel "xxx.mdl"
     
     $bodygroup "arms"
     {
-    	studio "shoubi.smd"
+    	studio "xxx.smd"
     }
     
     // other codes in the middle
@@ -217,14 +178,12 @@ $includemodel "xxx.mdl"
     // Delete bottom codes start from this line
     
     $sequence "reference" {
-    	"v_arms_gambler_new_anims\reference.smd"
+    	"v_arms_xxx\reference.smd"
     	fadein 0.2
     	fadeout 0.2
     	fps 30
     }
     ```
-
-    
 
 15. Copy the rest of QC contents into *4_Weapons\1_main.qci* and save.
 
@@ -233,4 +192,3 @@ $includemodel "xxx.mdl"
 17. When finished, you can see outputs in *5_OUTPUT*. Please modify them as you need, and re-pack them with vpk.exe (or with other method).
 
 18. See error logs in *6_LOGS*, if it failed to compile.
-
