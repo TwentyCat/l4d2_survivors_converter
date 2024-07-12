@@ -1,6 +1,6 @@
 ;Version
-version=2.4.5
-versionDate=June 25, 2024
+version=2.4.6
+versionDate=July 12, 2024
 versionBin=June 5, 2024
 versionNekoMDL=1.4.0
 ;Generate Information

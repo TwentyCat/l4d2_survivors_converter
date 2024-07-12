@@ -2,7 +2,7 @@
 :: (7/7) Move Output Files and Clear Temp Files
 if /i "%curCommand%" == "weapon" (
 	title %currentChar% - Weapon
-	"%studiomdlExec%" %studiomdlOpt% "%weaponsFolder%\%currentChar%.qc" >> "%logsFolder%\%logTime%_%currentChar%_Weapon.log"
+	"%studiomdlExec%" %studiomdlOpt% "%weaponsFolder%\%currentChar%.qc" >> "%logsFolder%\%sysTime%_%currentChar%_Weapon.log"
 	mkdir "%targetFolderWeapons%"
 	move /y "%outputFolderWeapons%\%m2%.mdl" "%targetFolderWeapons%\"
 	move /y "%outputFolderWeapons%\%m2%.dx90.vtx" "%targetFolderWeapons%\"
@@ -11,25 +11,25 @@ if /i "%curCommand%" == "weapon" (
 
 if /i "%curCommand%" == "survivor_nop" (
 	title %currentChar% - Survivor ^(NoProportions^)
-	"%studiomdlExec%" %studiomdlOpt% "%survivorsFolder%\%oriAnims%2%currentChar%_NoProportions.qc" >> "%logsFolder%\%logTime%_%currentChar%_Survivor.log"
+	"%studiomdlExec%" %studiomdlOpt% "%survivorsFolder%\%oriAnims%2%currentChar%_NoProportions.qc" >> "%logsFolder%\%sysTime%_%currentChar%_Survivor.log"
 	call :Func_SurvivorFileOperations
 )
 
 if /i "%curCommand%" == "survivor_nop_light" (
 	title %currentChar% - Survivor ^(NoProportions, Light^)
-	"%studiomdlExec%" %studiomdlOpt% "%survivorsFolder%\%oriAnims%2%currentChar%_light_NoProportions.qc" >> "%logsFolder%\%logTime%_%currentChar%_Survivor_Light.log"
+	"%studiomdlExec%" %studiomdlOpt% "%survivorsFolder%\%oriAnims%2%currentChar%_light_NoProportions.qc" >> "%logsFolder%\%sysTime%_%currentChar%_Survivor_Light.log"
 	call :Func_SurvivorFileOperations_Light
 )
 
 if /i "%curCommand%" == "survivor" (
 	title %currentChar% - Survivor
-	"%studiomdlExec%" %studiomdlOpt% "%survivorsFolder%\%oriAnims%2%currentChar%.qc" >> "%logsFolder%\%logTime%_%currentChar%_Survivor.log"
+	"%studiomdlExec%" %studiomdlOpt% "%survivorsFolder%\%oriAnims%2%currentChar%.qc" >> "%logsFolder%\%sysTime%_%currentChar%_Survivor.log"
 	call :Func_SurvivorFileOperations
 )
 
 if /i "%curCommand%" == "survivor_light" (
 	title %currentChar% - Survivor ^(Light^)
-	"%studiomdlExec%" %studiomdlOpt% "%survivorsFolder%\%oriAnims%2%currentChar%_light.qc" >> "%logsFolder%\%logTime%_%currentChar%_Survivor_Light.log"
+	"%studiomdlExec%" %studiomdlOpt% "%survivorsFolder%\%oriAnims%2%currentChar%_light.qc" >> "%logsFolder%\%sysTime%_%currentChar%_Survivor_Light.log"
 	call :Func_SurvivorFileOperations_Light
 )
 exit
