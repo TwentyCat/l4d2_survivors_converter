@@ -6,10 +6,63 @@
 # by: starfelll
 # https://steamcommunity.com/sharedfiles/filedetails/?id=3142607978
 
-It is recommended to use the -nvtristrip command line parameter to compile the final published model.  
-The default Forsyth algorithm does not optimize the number of vertices.
-
 [h2]Changelog[/h2]
+
+[h3]v2.1.0[/h3]
+[list]
+[*]glTF&Assimp: fix wrong end frame causing compilation failure
+[*]Fix the bug that $CmdList can't be parsed
+[/list]
+
+[h3]v2.0.5[/h3]
+[list]
+[*]Increase the maximum number of vertices in a single source file to 51w (511451), beyond which it will be split automatically.
+make sure $NoDecal is turned on in vmt, or make sure the number of vertices in each source file does not exceed 65536.
+[*]Fix a bug that prevented compilation.
+[/list]
+
+[h3]v2.0.4[/h3]
+[list]
+[*]New $Animation option: AppendScale
+[*]Fix a bug in glTF reading
+[/list]
+
+[h3]v2.0.3[/h3]
+[list]
+[*]New command: $NoFastGltf
+[*]Fix some bugs
+[/list]
+
+[h3]v2.0.2[/h3]
+[list]
+[*]Fixed inability to correctly parse filenames without extensions.
+[*]Using caching to improve loading speed of 'innode' options.
+[*]glTF and Assimp: fix the animation used by default when ‘pick’ is not used.
+[/list]
+
+[h3]v2.0.1[/h3]
+[list]
+[*]Fix 'InNode' error.
+[/list]
+
+[h3]v2.0[/h3]
+[list]
+[*]glTF support for animation, default up axis changed to Y, support for node transforms。
+[*]Throw away the FBX sdk.
+[*]Use Assimp model loading library, supports over 40 formats including FBX, PMX, VRM. Support for Animation/SceneNode/Mesh/MorphTarget.
+https://github.com/assimp/assimp/blob/master/doc/Fileformats.md
+[*]New qc command: $FPS, sets the default animation frame rate and the animation sampling rate for glTF or Assimp.
+[*]New source file parameters: 'InNode', 'SampleRate', 'Pick'. Ability to load part of the meshs or one of multiple animations in a single file. Only support glTF&Assimp(FBX..).
+    More details in the NewCommands.qci file.
+[*]$UpAxis added parameters: 'glTF', 'Assimp'
+[*]DMX: Does not display an error when a vertex has too many influenced bones.
+[/list]
+
+[h3]v1.4.1[/h3]
+[list]
+[*]New commands: $JiggleBoneRealign, $ReverseJiggleBoneRotation.
+[*]Use meshoptimizer instead of forsyth to optimize vertex caching, nvtristrip is no longer recommended.
+[/list]
 
 [h3]v1.4.0[/h3]
 [list]

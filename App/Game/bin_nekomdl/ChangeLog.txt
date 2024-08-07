@@ -6,12 +6,49 @@
 # by: starfelll
 # https://steamcommunity.com/sharedfiles/filedetails/?id=3142607978
 
-建议使用-nvtristrip命令行参数来编译最终发布的模型, 默认的Forsyth算法不会优化顶点数量。
 支持最多128个材质。模型用到的材质越多性能越差，最好还是优化一下
-支持编译至少100万面的模型
-
+能够编译至少100万面的模型
 
 更新日志
+
+## v2.1.0
+glTF&Assimp: 修复错误的结束帧导致编译失败
+修复$CmdList无法解析的bug
+
+## v2.0.5
+增加每个源文件的最大顶点数为51w(511451)，超过此数将自动拆分。请确保在vmt里开启$NoDecal， 或者每个源文件的顶点数不超过65536
+修复一个无法编译的bug
+
+## v2.0.4
+新的$Animation选项：AppendScale
+修复glTF读取的一个错误
+
+## v2.0.3
+新命令: $NoFastGltf
+修复一些bug
+
+## v2.0.2
+修复无扩展名的路径解析
+使用缓存提高innode选项的加载速度
+glTF和Assimp: 当不指定pick选项时，使用正确的默认动画
+
+## v2.0.1
+修复InNode报错
+
+## v2.0
+-glTF支持动画，默认向上轴改为Y，支持节点变换(即未应用变换的节点)
+-扔掉FBX sdk
+-使用Assimp模型加载库，支持包括FBX，PMX，VRM在内的40多种格式。适配了动画&场景节点&网格&形变目标
+https://github.com/assimp/assimp/blob/master/doc/Fileformats.md
+-新qc命令：$FPS，设置默认的动画帧率以及glTF&Assimp的动画采样率
+-新的源文件参数，InNode，SampleRate，Pick。以支持glTF&Assimp(FBX..)等单一文件加载部分网格或部分动画
+-当dmx顶点上受权重影响的骨骼过多时，不会显示错误信息
+-$UpAxis添加参数：glTF，Assimp
+-更多详情见NewCommands.qci文件
+
+## v1.4.1
+新命令：$JiggleBoneRealign、$ReverseJiggleBoneRotation，用于设置飘骨轴向
+使用meshoptimizer替代forsyth优化顶点缓存，不再建议使用nvtristrip
 
 ## v1.4.0
 切换到64位
