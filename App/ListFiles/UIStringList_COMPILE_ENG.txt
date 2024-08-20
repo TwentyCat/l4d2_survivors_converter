@@ -1,8 +1,8 @@
 ;Version
-version=2.4.7
-versionDate=July 12, 2024
+version=2.5.0
+versionDate=Aug 20, 2024
 versionBin=June 26, 2024
-versionNekoMDL=2.1.0
+versionNekoMDL=2.1.1
 ;Generate Information
 uiGInfo0=NULL
 uiGInfo1=Nick
@@ -20,7 +20,7 @@ uiWelcomeTitle=L4D2 Survivors Converter %version% by 20Cat steamcommunity.com/id
 uiWelcome0=	Welcome. Please ensure that necessary files are in place before you start compile.
 uiWelcome1=	Name:		"%charName%"
 uiWelcome2=	Animation:	%oriAnims_info%
-uiWelcome3=	Characters:	Num:%enable_num% : %enable_info_line1%%enable_info_line2%
+uiWelcome3=	Characters:	%enable_num% - %enable_info_line1%%enable_info_line2%
 uiWelcome4=	Compiler:	%bin_info%
 uiWelcome5=	A - CONFIG Page
 uiWelcome6=				ATTENTION: Copyright Issue
@@ -57,6 +57,9 @@ uiConfig22=	Input your Character Name here and Enter. Do not input special chara
 uiConfig23=Input and Enter to Save: 
 uiConfig24=Input and Enter: 
 uiConfig25=Undefined
+uiConfig26=		X - Standard Buffer - 8MB
+uiConfig27=		X - Large Buffer - 16MB
+uiConfig28=		X - Extra Large Buffer - 32MB
 ;
 ;Process_Compile
 uiCompileTitle0=Compiling...
@@ -75,16 +78,22 @@ uiFailedReason4_1=	There should be 3 portrait image. "s" means Panel, "i" means 
 uiFailedReason5=	- Addoninfo is missing. Tool encounters errors
 uiFailedReason5_1=	Please try again.
 uiFailedReason6=	- Failed to compile Survivor Model.
-uiFailedReason6_1=	Make sure that you have made necessary files in place, and also check up the 1_main.qci.
+uiFailedReason6_1=	Make sure that you have necessary files in place, and also check up 1_main.qci and buffer size.
 uiFailedReason6_2=	You can refer to error logs in 6_LOGS folder.
 uiFailedReason7=	- Failed to compile Weapon Model.
 uiFailedReason7_1=	Make sure that you have made necessary files in place, and also check up the 1_main.qci.
 uiFailedReason7_2=	You can refer to error logs in 6_LOGS folder.
 uiFailedReason8=	- Compile files for Survivor Model are corrupted. Make sure that necessary files are in place.
 uiFailedReason9=	- Compile files for Weapon Model are corrupted. Make sure that necessary files are in place.
+uiFailedReason10=	- Compiler seems to be crashed...
+uiFailedReason10_1=	Please use another compiler and start over...
+uiFailedReason10_2=	You can refer to logs in 6_LOGS folder.
 uiFailed0=	Press any key to Retry...
 uiFailed1=	Press any key to exit...
 uiFailed2=Type 1 and Enter, or Enter directly: 
+uiFailed3=	1 - Show error log
+uiFailed4=	Enter - Retry
+uiFailed5=	0 - Exit
 ;
 ;End
 uiEndTitle=Success...

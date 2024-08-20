@@ -1,8 +1,8 @@
 ;Version
-version=2.4.7
-versionDate=20240807
+version=2.5.0
+versionDate=20240820
 versionBin=20240626°æ
-versionNekoMDL=2.1.0
+versionNekoMDL=2.1.1
 ;Generate Information
 uiGInfo0=´ı¶¨
 uiGInfo1=Äá¿Ë Nick
@@ -57,10 +57,13 @@ uiConfig22=	ÊäÈëÈËÎïÃû³Æ²¢»Ø³µ¡£ÎªÁË±ÜÃâÆæÆæ¹Ö¹ÖµÄÎÊÌâ£¬×îºÃÊÇ´¿Ó¢ÎÄÊı×Ö¡£¿Õ¸ñ»á
 uiConfig23=ÇëÊäÈë£¨Áô¿Õ·µ»Ø£©£º
 uiConfig24=ÇëÊäÈë£º
 uiConfig25=Î´¶¨Òå
+uiConfig26=		¡¾X¡¿±ê×¼»º´æ£¨8M£©
+uiConfig27=		¡¾X¡¿´ó»º´æ£¨16M£©
+uiConfig28=		¡¾X¡¿³¬´ó»º´æ£¨32M£©
 ;
 ;Process_Compile
 uiCompileTitle0=±àÒëÖĞ...
-uiCompileTitle1=±àÒëÖĞ... Ê£Óà±àÒë½ø³Ì %threadCount% ¸ö...
+uiCompileTitle1=±àÒëÖĞ... µÈ´ı±àÒë½ø³Ì %threadCount% ¸ö...
 uiCompile0=	¡ñ ÕıÔÚ´¦Àí %currentChar% ÈËÎï ...
 uiCompile1=	¡ñ ±àÒëÆÚ¼ä»áÕ¼ÓÃ´óÁ¿ CPU£¬ÇëÔİÊ±²»¶¯µçÄÔ£¬ÄÍĞÄµÈ´ı...
 ;
@@ -75,16 +78,22 @@ uiFailedReason4_1=	Í·ÏñÓĞÈı¸öÎÄ¼ş£¬s ´ú±íÕı³£Í·Ïñ£¬i ´ú±íµ¹µØÍ·Ïñ£¬l ±íÊ¾´óÌüÍ·Ï
 uiFailedReason5=	¡Á ÃèÊöÎÄ¼şÈ±Ê§£¡
 uiFailedReason5_1=	¹¤¾ßÔËĞĞÊ±×îºÃ²»Òª²Ù×÷µçÄÔÅ¶¡£
 uiFailedReason6=	¡Á ÈËÎïÉíÌåÄ£ĞÍ±àÒëÊ§°Ü£¡
-uiFailedReason6_1=	Çë¼ì²é Survivors ÎÄ¼ş¼ĞÀïµÄ SMD¡¢VRD¡¢VTA ÎÄ¼şÊÇ·ñ·ÅºÃ£¬1_main.qci ÀïµÄ²ÎÊıÊÇ·ñÕıÈ·...
+uiFailedReason6_1=	Çë¼ì²é Survivors ÎÄ¼ş¼ĞÀïµÄ SMD¡¢VRD¡¢VTA ÎÄ¼şÊÇ·ñ·ÅºÃ£¬»º´æÊÇ·ñ¹ıĞ¡£¬1_main.qci ÀïµÄ²ÎÊıÊÇ·ñÕıÈ·...
 uiFailedReason6_2=	¹¤¾ßÄÚ LOGS ÎÄ¼ş¼ĞÄÚ¿É²éÔÄÍêÕû´íÎóÈÕÖ¾¡£
 uiFailedReason7=	¡Á ÈËÎïÊÖ±ÛÄ£ĞÍ±àÒëÊ§°Ü£¡
 uiFailedReason7_1=	Çë¼ì²é Weapons ÎÄ¼ş¼ĞÀïµÄ SMD ÎÄ¼şÊÇ·ñ·ÅºÃ¡¢1_main.qci ÀïµÄ²ÎÊıÊÇ·ñÕıÈ·...
 uiFailedReason7_2=	¹¤¾ßÄÚ LOGS ÎÄ¼ş¼ĞÄÚ¿É²éÔÄÍêÕû´íÎóÈÕÖ¾¡£
 uiFailedReason8=	¡Á ÈËÎïÉíÌåÄ£ĞÍ±àÒëÎÄ¼şËÆºõÃ»ÓĞ·ÅºÃ£¡¡¾Çë¼ì²éÊÇ·ñ·ÅºÃÁËÏà¹ØÎÄ¼ş¡¿
 uiFailedReason9=	¡Á ÈËÎïÊÖ±ÛÄ£ĞÍ±àÒëÎÄ¼şËÆºõÃ»ÓĞ·ÅºÃ£¡¡¾Çë¼ì²éÊÇ·ñ·ÅºÃÁËÏà¹ØÎÄ¼ş¡¿
-uiFailed0=	°´ÈÎÒâ¼üÖØÊÔ...
+uiFailedReason10=	¡Á ±àÒëÆ÷ÒâÍâÍË³ö£¡
+uiFailedReason10_1=	Çë³¢ÊÔ¸ü»»±àÒëÆ÷ÔÙÖØĞÂ±àÒë...
+uiFailedReason10_2=	¹¤¾ßÄÚ LOGS ÎÄ¼ş¼ĞÄÚ¿É²éÔÄ±àÒëÆ÷ÍË³öÇ°ÈÕÖ¾¡£
+uiFailed0=	¹¤¾ßÄÚ LOGS ÎÄ¼ş¼ĞÄÚ¿É²éÔÄÍêÕû´íÎóÈÕÖ¾¡£
 uiFailed1=	°´ÈÎÒâ¼ü¹Ø±Õ´°¿Ú...
-uiFailed2=ÊäÈëÊı×Ö1²¢»Ø³µ£¬»òÖ±½Ó»Ø³µ£º
+uiFailed2=ÊäÈëÊı×Ö²¢»Ø³µ£¬»òÖ±½Ó»Ø³µ£º
+uiFailed3=	¡¾1¡¿ÏÔÊ¾´íÎóÈÕÖ¾
+uiFailed4=	¡¾»Ø³µ¡¿ÖØÊÔ
+uiFailed5=	¡¾0¡¿ÍË³ö
 ;
 ;End
 uiEndTitle=±àÒë³É¹¦...

@@ -16,12 +16,6 @@ $ikchain ikclip "ValveBiped.weapon_bone_Clip" Z 0 knee 0.707 -0.707 0
 $ikautoplaylock rfoot 1.0 0.1
 $ikautoplaylock lfoot 1.0 0.1
 
-$animblocksize 32
-
-$bonesaveframe "ValveBiped.Bip01_Pelvis" position
-$bonesaveframe "ValveBiped.attachment_bandage_armL" position
-$bonesaveframe "ValveBiped.weapon_bone" position
-
 $animation "@dlc1_intro_male_leanup_corrective_animation" "ANIMS\@dlc1_intro_male_leanup_corrective_animation.smd"
 $animation "@dlc1_intro_male_leanleft_corrective_animation" "ANIMS\@dlc1_intro_male_leanleft_corrective_animation.smd"
 $animation "@dlc1_intro_male_headnod_corrective_animation" "ANIMS\@dlc1_intro_male_headnod_corrective_animation.smd"

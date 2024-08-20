@@ -16,9 +16,6 @@ $ikchain ikclip "ValveBiped.weapon_bone_Clip" Z 0 knee 0.707 -0.707 0
 $ikautoplaylock rfoot 1.0 0.1
 $ikautoplaylock lfoot 1.0 0.1
 
-$animblocksize 32
-$bonesaveframe "ValveBiped.Bip01_Pelvis" position
-
 $animation "@dlc1_intro_zoey_shrug_corrective_animation" "ANIMS\@dlc1_intro_zoey_shrug_corrective_animation.smd"
 $animation "@dlc1_intro_zoey_shout_corrective_animation" "ANIMS\@dlc1_intro_zoey_shout_corrective_animation.smd"
 $animation "@dlc1_intro_zoey_headshake_corrective_animation" "ANIMS\@dlc1_intro_zoey_headshake_corrective_animation.smd"

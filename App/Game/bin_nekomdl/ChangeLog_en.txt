@@ -8,6 +8,12 @@
 
 [h2]Changelog[/h2]
 
+[h3]v2.1.1[/h3]
+[list]
+[*]Increase the maximum number of flexed vertices to 511451.
+[*]New qc command: $FileBufferSize; default is 8mb. if your model has very much detail, or very much animation, a larger file buffer will be needed. Increase its size appropriately to prevent compilation failures, and the compiler will also take more memory.
+[/list]
+
 [h3]v2.1.0[/h3]
 [list]
 [*]glTF&Assimp: fix wrong end frame causing compilation failure

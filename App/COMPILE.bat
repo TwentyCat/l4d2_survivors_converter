@@ -71,8 +71,8 @@ if defined modeReset (goto ResetMode)
 call :Func_CheckFiles
 
 :: Get User Params
-for /f "usebackq tokens=1,2,3,4,5,6,7,8,9,10 delims=," %%a in ("%appFolder%\config.ini") do (
-if not defined oriAnims (set "oriAnims=%%a")
+for /f "usebackq tokens=1,2,3,4,5,6,7,8,9,10,11 delims=," %%a in ("%appFolder%\config.ini") do (
+	if not defined oriAnims (set "oriAnims=%%a")
 	set "enable_Nick=%%b"
 	set "enable_Rochelle=%%c"
 	set "enable_Coach=%%d"
@@ -82,6 +82,7 @@ if not defined oriAnims (set "oriAnims=%%a")
 	set "enable_Louis=%%h"
 	set "enable_Francis=%%i"
 	set "enable_nekomdl=%%j"
+	set "enable_nekomdl_largebuffer=%%k"
 	goto exitloop0
 	)
 :exitloop0
@@ -101,6 +102,7 @@ if not defined enable_Zoey (set "enable_Zoey=1")
 if not defined enable_Louis (set "enable_Louis=1")
 if not defined enable_Francis (set "enable_Francis=1")
 if not defined enable_nekomdl (set "enable_nekomdl=1")
+if not defined enable_nekomdl_largebuffer (set "enable_nekomdl_largebuffer=0")
 
 :: Generate Information
 goto CharNameCheck_0
@@ -128,7 +130,11 @@ if /i "%oriAnims%" == "francis" (set "oriAnims_info=%uiGInfo7%")
 if /i "%oriAnims%" == "louis" (set "oriAnims_info=%uiGInfo8%")
 
 set "bin_info=null"
+set "bin_nekomdl_option_info=null"
 if /i "%enable_nekomdl%" == "1" (call set "bin_info=%uiGInfo9%") else (call set "bin_info=%uiGInfo10%")
+if /i "%enable_nekomdl_largebuffer%" == "0" (set "bin_nekomdl_option_info=%uiConfig26%")
+if /i "%enable_nekomdl_largebuffer%" == "1" (set "bin_nekomdl_option_info=%uiConfig27%")
+if /i "%enable_nekomdl_largebuffer%" == "2" (set "bin_nekomdl_option_info=%uiConfig28%")
 
 if "%charName%" == "%uiGInfo0%" (goto UI_InputCharName)
 if "%config%" == "1" (goto UI_Config)
@@ -136,7 +142,7 @@ if "%enable_num%" == "0" (goto UI_Config)
 if "%oriAnims_info%" == "null" (goto UI_Config)
 
 :: Save Configs to App Folder
-set "appConfigSaveString=%oriAnims%,%enable_Nick%,%enable_Rochelle%,%enable_Coach%,%enable_Ellis%,%enable_Bill%,%enable_Zoey%,%enable_Louis%,%enable_Francis%,%enable_nekomdl%"
+set "appConfigSaveString=%oriAnims%,%enable_Nick%,%enable_Rochelle%,%enable_Coach%,%enable_Ellis%,%enable_Bill%,%enable_Zoey%,%enable_Louis%,%enable_Francis%,%enable_nekomdl%,%enable_nekomdl_largebuffer%"
 del /q "%appConfig%">nul 2>nul
 (echo %appConfigSaveString%)>>"%appConfig%"
 del /q "%appFolder%\*.lastrun">nul 2>nul
@@ -178,7 +184,7 @@ if "%oriAnims_info%" == "null" (color 0C&echo,%uiConfig13%) else (call echo,%uiC
 echo,
 if "%enable_num%" == "0" (color 0C&echo,%uiConfig15%) else (call echo,%uiConfig16%)
 echo,
-if "%enable_nekomdl%" == "1" (echo,%uiConfig17%) else (echo,%uiConfig18%)
+if "%enable_nekomdl%" == "1" (echo,%uiConfig17%%bin_nekomdl_option_info%) else (echo,%uiConfig18%)
 echo,
 echo,
 echo,%uiConfig0%
@@ -201,7 +207,7 @@ echo,%uiConfig20%
 echo,
 echo,%uiConfig21%
 set "config=1"
-choice /n /c 0123456789ASDNRCEBZLF
+if "%enable_nekomdl%" == "1" (choice /n /c 0123456789ASDNRCEBZLFX) else (choice /n /c 0123456789ASDNRCEBZLF)
 if "%errorlevel%" == "1" (set "enable_Nick=0"&set "enable_Rochelle=0"&set "enable_Coach=0"&set "enable_Ellis=0"&set "enable_Bill=0"&set "enable_Zoey=0"&set "enable_Louis=0"&set "enable_Francis=0")
 if "%errorlevel%" == "2" (
 	if "%enable_Nick%" == "1" (set "enable_Nick=0")
@@ -250,6 +256,11 @@ if "%errorlevel%" == "18" (set "oriAnims=bill")
 if "%errorlevel%" == "19" (set "oriAnims=zoey")
 if "%errorlevel%" == "20" (set "oriAnims=louis")
 if "%errorlevel%" == "21" (set "oriAnims=francis")
+if "%errorlevel%" == "22" (
+	if "%enable_nekomdl_largebuffer%" == "0" (set "enable_nekomdl_largebuffer=1")
+	if "%enable_nekomdl_largebuffer%" == "1" (set "enable_nekomdl_largebuffer=2")
+	if "%enable_nekomdl_largebuffer%" == "2" (set "enable_nekomdl_largebuffer=0")
+	)
 goto GenerateInformation
 
 :UI_InputCharName
@@ -276,14 +287,14 @@ set "charName_2="
 :CharNameCheck_1
 :: Remove additional special chars
 if 1==%charName%1%charName% (goto CharNameCheck_2)
-set charName_1=%charName:~0,1%
+set "charName_1=%charName:~0,1%"
 if **==%charName_1%%charName_1% (set charName_1=)
 if ""==%charName_1%%charName_1% (set charName_1=)
-set charName=%charName:~1%
-set charName_2=%charName_2%%charName_1%
+set "charName=%charName:~1%"
+set "charName_2=%charName_2%%charName_1%"
 goto CharNameCheck_1
 :CharNameCheck_2
-set charName=%charName_2%
+set "charName=%charName_2%"
 :: If failed, fallback to default charName
 if not defined charName (set "charName=%uiGInfo0%")
 :: Redirect
@@ -349,6 +360,7 @@ if defined retry (
 	set "failWeaponModels=0"
 	set "retry="
 	set "warning="
+	set "compilerdead="
 	set "failReason0="
 	set "failReason1="
 	set "failReason2="
@@ -402,9 +414,9 @@ if "%check_oriAnims_valid%" == "0" (set "failReason1=1"&goto CheckFailed)
 if "%check_enable_valid%" == "0" (set "failReason2=1"&goto CheckFailed)
 if "%check_appfiles_valid%" == "0" (set "failReason3=1"&goto CheckFailed)
 
-goto Process_LaunchThreads
+goto Process_LaunchMultiThreads
 
-:Process_LaunchThreads
+:Process_LaunchMultiThreads
 if not defined charSeq (set "charSeq=1")
 for /f "usebackq skip=%charSeq% eol=; tokens=1,2,3,4,5,6,7 delims=," %%a in ("%appListSurvivorsParms%") do (
 	set /a "charSeq=charSeq+1"
@@ -418,7 +430,7 @@ for /f "usebackq skip=%charSeq% eol=; tokens=1,2,3,4,5,6,7 delims=," %%a in ("%a
 	call set "enabled=enable_!currentChar!"
 	call set "enabled=%%!enabled!%%"
 	
-	if "!enabled!" == "0" (goto Process_LaunchThreads)
+	if "!enabled!" == "0" (goto Process_LaunchMultiThreads)
 	if /i "!currentChar!" == "end" (set "charSeq=1"&goto Process_Wait)
 	
 	set "compiling=1"
@@ -441,13 +453,26 @@ call title %uiCompileTitle1%
 goto Process_Wait_Loop
 
 :Process_WaitFinished
-:: Remove Logs of Success, and export WARNS to anothor log file
+:: Crate empty ERRORLOG.log
 del /q "%appLogErrorTXT%">nul 2>nul
 type nul>>"%appLogErrorTXT%"
+:: When using NekoMDL, ignore the warns of "unmatched vertex anims"
+if "%enable_nekomdl%" == "1" (
+	for %%a in ("%logsFolder%\*.log") do (
+		findstr /v /c:"unmatched vertex anims" "%%a">>"%%a.tmp"
+		)>nul 2>nul
+	for %%a in ("%logsFolder%\*.log") do (
+		del /q "%%a"
+		move /y "%%a.tmp" "%%a"
+		)>nul 2>nul
+	)
+:: Export warns to seperated log file
 for %%a in ("%logsFolder%\*.log") do (
 	findstr /i "warning unknown error" "%%a"
 	if "!errorlevel!" == "1" (
-	del /q "%%a"
+		:: Remove Logs of Success
+		findstr "^Completed" "%%a"
+		if "!errorlevel!" == "0" (del /q "%%a")
 	) else (
 	set warning=1
 	for /f "delims=" %%b in ('findstr /i "warning unknown error" "%%a"') do (findstr /i "%%b" "%appLogErrorTXT%" || echo %%b>>"%appLogErrorTXT%")
@@ -488,7 +513,6 @@ for /f "usebackq skip=%charSeq% eol=; tokens=1,2,3,4,5,6,7 delims=," %%a in ("%a
 	if not exist "!targetFolderSurvivors!\!m1!.dx90.vtx" (set "failSurvivorModels=1")
 	if not exist "!targetFolderSurvivors!\!m1!.vvd" (set "failSurvivorModels=1")
 	if "!light!" == "1" (
-		if not exist "!targetFolderSurvivors!\!m1!_light.ani" (set "failSurvivorModels=1")
 		if not exist "!targetFolderSurvivors!\!m1!_light.mdl" (set "failSurvivorModels=1")
 		if not exist "!targetFolderSurvivors!\!m1!_light.dx90.vtx" (set "failSurvivorModels=1")
 		if not exist "!targetFolderSurvivors!\!m1!_light.vvd" (set "failSurvivorModels=1")
@@ -558,6 +582,8 @@ for /f "usebackq skip=%charSeq% eol=; tokens=1,2,3,4,5,6,7 delims=," %%a in ("%a
 	)>nul 2>nul
 :: Clear Failed Outputs }
 call :Func_ClearCompileTempFiles
+:: Check if compiler exits without errors
+if not defined warning (set "compilerdead=1")
 :: Redirect
 goto UI_Fail
 
@@ -578,25 +604,47 @@ if defined failReason5 (
 	if defined compiling (set "allowRetry=1")
 	)
 if defined failReason6 (
-	echo,%uiFailedReason6%&echo,&echo,%uiFailedReason6_1%&echo,%uiFailedReason6_2%&echo,
-	if defined compiling (set "allowRetry=1")
+	if not defined compilerdead (
+		echo,%uiFailedReason6%&echo,&echo,%uiFailedReason6_1%&echo,%uiFailedReason6_2%&echo,
+		if defined compiling (set "allowRetry=1")
+		) else (
+		echo,%uiFailedReason10%&echo,&echo,%uiFailedReason10_1%&echo,%uiFailedReason10_2%&echo,
+		echo,&echo,&echo,
+		echo,%uiFailed1%&pause>nul&exit
+		)
 	)
 if defined failReason7 (
-	echo,%uiFailedReason7%&echo,&echo,%uiFailedReason7_1%&echo,%uiFailedReason7_2%&echo,
-	if defined compiling (set "allowRetry=1")
+	if not defined compilerdead (
+		echo,%uiFailedReason7%&echo,&echo,%uiFailedReason7_1%&echo,%uiFailedReason7_2%&echo,
+		if defined compiling (set "allowRetry=1")
+		) else (
+		echo,%uiFailedReason10%&echo,&echo,%uiFailedReason10_1%&echo,%uiFailedReason10_2%&echo,
+		echo,&echo,&echo,
+		echo,%uiFailed1%&pause>nul&exit
+		)
 	)
 if defined failReason8 (echo,%uiFailedReason8%&echo,)
 if defined failReason9 (echo,%uiFailedReason9%&echo,)
-echo,&echo,
+echo,&echo,&echo,&echo,&echo,
 
 if "%allowRetry%" == "1" (
-	echo,%uiFailed0%
+	echo,%uiFailed3%
+	echo,
+	echo,%uiFailed4%
+	echo,
+	echo,%uiFailed5%
 	echo,&echo,&echo,
 	) else (
-	echo,%uiFailed1%&pause>nul & exit
+	echo,%uiFailed1%
+	pause>nul&exit
 	)
-
-pause>nul
+set "userInput=null"
+set /p "userInput=%uiFailed2%"
+if "%userInput%" == "1" (
+	start "" "%appLogErrorTXT%"
+	goto UI_Fail
+	)
+if "%userInput%" == "0" (exit)
 set "retry=1"
 cls&color 0A
 goto Process_Retry
@@ -716,15 +764,18 @@ for /f "usebackq eol=; delims=" %%i in ("%appListAddoninfoTXT%") do (
 	echo %%i>>"%targetFolderAddoninfo%"
 	)
 cls&echo,&echo,&call echo,%uiCompile0%
-:: (6/7) Compile Models
+:: (6/7) Prepare for Compiling
 if "%enable_nekomdl%" == "1" (set "studiomdlExec=%appBinNekoMDLExec%") else (set "studiomdlExec=%appBinExec%")
 set "studiomdlOpt=-game "%appGameFolder%\left4dead2" -nop4 -verbose"
 set "targetFolderSurvivors=%targetFolder%\models\survivors"
 set "targetFolderWeapons=%targetFolder%\models\weapons\arms"
 :: (6.1/7) Weapon Model
+set "curCommand=weapon"
+set "curQCName=%currentChar%"
+set "curLogName=%sysTime%_%currentChar%_Weapon"
 xcopy "%appWeaponsFolder%\ANIMS\*.*" "%weaponsFolder%\ANIMS\" /e /y>nul 2>nul
 copy /y "%appWeaponsFolder%\%currentChar%.qc" "%weaponsFolder%\">nul 2>nul
-set "curCommand=weapon"&start /min "" "%appCompileCommand%"
+start /min "" "%appCompileCommand%"
 :: (6.2/7) Survivor Model
 xcopy "%appSurvivorsFolder%\ANIMS\*.*" "%survivorsFolder%\ANIMS\" /e /y>nul 2>nul
 :: Check Proportions {
@@ -733,20 +784,32 @@ if exist "%survivorsFolder%\a_proportions.smd" (set "proportionsExists=1")
 if exist "%survivorsFolder%\a_proportions_corrective_animation.smd" (set "proportionsExists=1")
 :: Case0: Proportions Not Exists
 if "%proportionsExists%" == "0" (
+	set "curCommand=survivor_nop"
+	set "curQCName=%oriAnims%2%currentChar%_NoProportions"
+	set "curLogName=%sysTime%_%currentChar%_Survivor"
 	copy /y "%appSurvivorsFolder%\%oriAnims%2%currentChar%_NoProportions.qc" "%survivorsFolder%\">nul 2>nul
-	set "curCommand=survivor_nop"&start /min "" "%appCompileCommand%"
+	start /min "" "%appCompileCommand%"
 	if "%light%" == "1" (
+		set "curCommand=survivor_light_nop"
+		set "curQCName=%oriAnims%2%currentChar%_light_NoProportions"
+		set "curLogName=%sysTime%_%currentChar%_Survivor_Light"
 		copy /y "%appSurvivorsFolder%\%oriAnims%2%currentChar%_light_NoProportions.qc" "%survivorsFolder%\">nul 2>nul
-		set "curCommand=survivor_nop_light"&start /min "" "%appCompileCommand%"
+		start /min "" "%appCompileCommand%"
 		)
 	)
 :: Case1: Proportions Exists
 if "%proportionsExists%" == "1" (
+	set "curCommand=survivor"
+	set "curQCName=%oriAnims%2%currentChar%"
+	set "curLogName=%sysTime%_%currentChar%_Survivor"
 	copy /y "%appSurvivorsFolder%\%oriAnims%2%currentChar%.qc" "%survivorsFolder%\">nul 2>nul
-	set "curCommand=survivor"&start /min "" "%appCompileCommand%"
+	start /min "" "%appCompileCommand%"
 	if "%light%" == "1" (
+		set "curCommand=survivor_light"
+		set "curQCName=%oriAnims%2%currentChar%_light"
+		set "curLogName=%sysTime%_%currentChar%_Survivor_Light"
 		copy /y "%appSurvivorsFolder%\%oriAnims%2%currentChar%_light.qc" "%survivorsFolder%\">nul 2>nul
-		set "curCommand=survivor_light"&start /min "" "%appCompileCommand%"
+		start /min "" "%appCompileCommand%"
 		)
 	)
 :: Check Proportions }
