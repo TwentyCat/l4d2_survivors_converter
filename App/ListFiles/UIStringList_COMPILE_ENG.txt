@@ -1,6 +1,6 @@
 ;Version
-version=2.5.0
-versionDate=Aug 20, 2024
+version=2.5.1
+versionDate=Aug 26, 2024
 versionBin=June 26, 2024
 versionNekoMDL=2.1.1
 ;Generate Information
@@ -16,7 +16,7 @@ uiGInfo8=Louis
 uiGInfo9=NekoMDL %versionNekoMDL% by Starfelll  L4D2 Workshop Item ID: 3142607978
 uiGInfo10=L4D2-AT %versionBin%
 ;Screen_Welcome
-uiWelcomeTitle=L4D2 Survivors Converter %version% by 20Cat steamcommunity.com/id/20cat  FREE, NO COMERCIAL USE  Verion: %versionDate%
+uiWelcomeTitle=L4D2 Survivors Converter %version% by 20Cat steamcommunity.com/id/20cat  FREE, NO COMERCIAL USE  Version: %versionDate%
 uiWelcome0=	Welcome. Please ensure that necessary files are in place before you start compile.
 uiWelcome1=	Name:		"%charName%"
 uiWelcome2=	Animation:	%oriAnims_info%

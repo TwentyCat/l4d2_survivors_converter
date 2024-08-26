@@ -1,6 +1,6 @@
 ;Version
-version=2.5.0
-versionDate=20240820
+version=2.5.1
+versionDate=20240826
 versionBin=20240626°æ
 versionNekoMDL=2.1.1
 ;Generate Information

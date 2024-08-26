@@ -1,5 +1,5 @@
 ;Version
-versionDate=20240820
+versionDate=20240826
 ;Screen_Welcome
 uiWelcomeTitle=自动放置文件工具【%versionDate%版】
 uiWelcome0=	使用前，必须先清理工具残留文件，是否进行清理？

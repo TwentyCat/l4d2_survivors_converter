@@ -114,7 +114,6 @@ Github: https://github.com/TwentyCat/l4d2_survivors_converter
 	$includemodel xxx
 	```
 	
-
  - After done, the QC code looks like:
 
 	```c++
@@ -128,15 +127,17 @@ Github: https://github.com/TwentyCat/l4d2_survivors_converter
 	// other codes in the middle
 	// other codes in the middle
 	// other codes in the middle
-
+	
 	$ikautoplaylock "rfoot" 1 0.1
 	$ikautoplaylock "lfoot" 1 0.1
 	
-	// Delete bottom codes start from this line
+	// delete bottom codes start from the line here
 	
 	$weightlist "xxx" {}
 	$animation "xxx" "xxx.smd" {fps xxx}
 	$includemodel "xxx.mdl"
+	    
+	// or delete bottom codes start from the line here
 	```
 
 10. Copy the rest of QC contents into *3_Survivors\1_main.qci* and save.
@@ -175,7 +176,7 @@ Github: https://github.com/TwentyCat/l4d2_survivors_converter
     // other codes in the middle
     // other codes in the middle
     
-    // Delete bottom codes start from this line
+    // Delete bottom codes start from the line here
     
     $sequence "reference" {
     	"v_arms_xxx\reference.smd"

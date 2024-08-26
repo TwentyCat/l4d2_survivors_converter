@@ -2,20 +2,6 @@ $modelname "survivors/survivor_teenangst.mdl"
 
 $include "1_main.qci"
 
-$poseparameter "body_pitch" -90 90 loop 360
-$poseparameter "body_yaw" -90 90 loop 360
-$poseparameter "head_pitch" -90 90 loop 360
-$poseparameter "head_yaw" -90 90 loop 360
-
-$ikchain rhand "valvebiped.Bip01_R_Hand" Z 0 knee 0.707 0.707 0
-$ikchain lhand "valvebiped.Bip01_L_Hand" Z 0 knee 0.707 0.707 0
-$ikchain rfoot "valvebiped.Bip01_R_Foot" Z 0 knee 0.707 -0.707 0 pad 5 center 4 0 0
-$ikchain lfoot "valvebiped.Bip01_L_Foot" Z 0 knee 0.707 -0.707 0 pad 5 center 4 0 0
-$ikchain ikclip "ValveBiped.weapon_bone_Clip" Z 0 knee 0.707 -0.707 0
-
-$ikautoplaylock rfoot 1.0 0.1
-$ikautoplaylock lfoot 1.0 0.1
-
 $sequence "CustomModel" {
 	"ANIMS\CustomModel.smd"
 	fadein 0.2

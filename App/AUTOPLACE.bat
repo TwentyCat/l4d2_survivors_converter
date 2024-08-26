@@ -37,7 +37,7 @@ if not exist "%appListPortraits%" (set "failReason2=1"&goto CheckFailScreen)
 if not exist "%appListSurvivors%" (set "failReason2=1"&goto CheckFailScreen)
 if not exist "%appListSurvivorsAnims%" (set "failReason2=1"&goto CheckFailScreen)
 if not exist "%appListWeapons%" (set "failReason2=1"&goto CheckFailScreen)
-:: Check if VPK is occupied by other process (1/2)
+:: Check if VPK is occupied by other process 1st time
 rename %file% "%fileNameWithExt%">nul 2>nul
 if "%errorlevel%" == "1" (set "failReason3=1"&goto CheckFailScreen)
 
@@ -90,14 +90,17 @@ for /f "tokens=2" %%b in ('tasklist /FI "WindowTitle eq %vpkName1%" /FO LIST ^| 
 set "vpkName1=%vpkName1%_%vpkName1Ext%"
 
 :VPKConverter_PROCESS_EXTRACT
-:: Check if VPK is occupied by other process (2/2)
+:: Check if VPK is occupied by other process 2nd times
 rename "%vpkName%.vpk" "%vpkName1%.vpk"
 if "%errorlevel%" == "1" (set "failReason3=1"&goto ClearTempFiles)
 set "targetPath=%~d1%~p1%vpkName1%"
 set "targetPath_Exist=%~d1%~p1%vpkName1%_%sysTime%"
 
 :: Set another name for vpkName1, if a folder named as vpkName1 exists
-if exist "%targetPath%" (copy /y "%vpkName1%.vpk" "%vpkName1%_%sysTime%.vpk">nul 2>nul&set "vpkName1=%vpkName1%_%sysTime%")
+if exist "%targetPath%" (
+	copy /y "%vpkName1%.vpk" "%vpkName1%_%sysTime%.vpk"
+	set "vpkName1=%vpkName1%_%sysTime%"
+	)>nul 2>nul
 set "targetPath=%~d1%~p1%vpkName1%"
 
 "%appVPKConverterExec%" "%vpkName1%.vpk">nul
@@ -138,7 +141,7 @@ for /f "usebackq tokens=1,2 delims=," %%a in ("%appListPortraits%") do (
 		set "vtfFile=!vtfFile:.vtf=!"
 		set "vtfFile=%vpkExtractPath%\materials\!vtfFile!.vtf"
 	)>nul 2>nul
-	copy /y "!vtfFile!" "%portraitsFolder%\!vtfFileType!.vtf">nul 2>nul
+	copy /y "!vtfFile!" "%portraitsFolder%\!vtfFileType!.vtf"
 	)>nul 2>nul
 
 :: Replace L with S, if L not exist
@@ -178,21 +181,15 @@ if not defined mdlFileSurvivor (set "mdlFileSurvivor=null")
 if not defined mdlFileNameSurvivor (set "mdlFileNameSurvivor=null")
 if exist "%mdlFileSurvivor%" (
 	:: Decompile
-	"%appCrowbarDecompilerExec%" "%mdlFileSurvivor%" Survivor_%sysTime%>nul
+	"%appCrowbarDecompilerExec%" "%mdlFileSurvivor%" Survivor_%sysTime%
 	:: Check if necessary QCIs are present
 	if not exist "%vpkpath%\Survivor_%sysTime%\%mdlFileNameSurvivor%_bone.qci" (set "vpkMDLValid=0")
 	if not exist "%vpkpath%\Survivor_%sysTime%\%mdlFileNameSurvivor%_animation.qci" (set "vpkMDLValid=0")
-	:: Tweak QC file
-	findstr /v /i "_animation.qci $modelname CrowbarDecompiler" "%vpkpath%\Survivor_%sysTime%\%mdlFileNameSurvivor%.qc">>"%vpkpath%\Survivor_%sysTime%\1_main.qci"
-	:: Copy Files to Survivors Converting Tool
-	copy /y "%vpkpath%\Survivor_%sysTime%\*.smd" "%survivorsFolder%\">nul 2>nul
-	copy /y "%vpkpath%\Survivor_%sysTime%\*.vrd" "%survivorsFolder%\">nul 2>nul
-	copy /y "%vpkpath%\Survivor_%sysTime%\*.vta" "%survivorsFolder%\">nul 2>nul
-	copy /y "%vpkpath%\Survivor_%sysTime%\%mdlFileNameSurvivor%_anims\a_proportions.smd" "%survivorsFolder%\">nul 2>nul
-	copy /y "%vpkpath%\Survivor_%sysTime%\%mdlFileNameSurvivor%_anims\a_proportions_corrective_animation.smd" "%survivorsFolder%\">nul 2>nul
-	REM copy /y "%vpkpath%\Survivor_%sysTime%\%mdlFileNameSurvivor%_anims\reference.smd" "%survivorsFolder%\">nul 2>nul
-	copy /y "%vpkpath%\Survivor_%sysTime%\*.qci" "%survivorsFolder%\">nul 2>nul
-	) else (
+	:: Write IKRULE block
+	findstr /i "$poseparameter $ikchain $ikautoplaylock" "%vpkpath%\Survivor_%sysTime%\%mdlFileNameSurvivor%_animation.qci">>"%vpkpath%\Survivor_%sysTime%\%mdlFileNameSurvivor%_animation_temp.qci"
+	:: Write OTHER blocks
+	findstr /v /i "$modelname CrowbarDecompiler" "%vpkpath%\Survivor_%sysTime%\%mdlFileNameSurvivor%.qc">>"%vpkpath%\Survivor_%sysTime%\1_main.qci"
+	)>nul 2>nul else (
 	set "vpkSurvivorsExist=0"
 	)
 
@@ -204,14 +201,26 @@ if exist "%mdlFileSurvivor%" (
 		set "mdlAnimationName=!mdlAnimationName:survivors/=!"
 		set "mdlAnimationName=!mdlAnimationName:.mdl=!"
 		goto GetAnimationNameFinished
-	)
+		)
 	)>nul 2>nul
 :GetAnimationNameFinished
 if exist "%mdlFileSurvivor%" (
 	for /f "usebackq eol=; tokens=1,2,3 delims=," %%a in ("%appListSurvivorsAnims%") do (
 		if /i "%mdlAnimationName%" == "%%a" (set "oriAnims=%%b"&set "oriAnims_info=%%c")
-	)
-	)
+		)
+	move /y "%vpkpath%\Survivor_%sysTime%\%mdlFileNameSurvivor%_animation_temp.qci" "%vpkpath%\Survivor_%sysTime%\%mdlFileNameSurvivor%_animation.qci"
+	)>nul 2>nul
+
+if exist "%mdlFileSurvivor%" (
+	:: Copy Files to user folder
+	copy /y "%vpkpath%\Survivor_%sysTime%\*.smd" "%survivorsFolder%\"
+	copy /y "%vpkpath%\Survivor_%sysTime%\*.vrd" "%survivorsFolder%\"
+	copy /y "%vpkpath%\Survivor_%sysTime%\*.vta" "%survivorsFolder%\"
+	copy /y "%vpkpath%\Survivor_%sysTime%\%mdlFileNameSurvivor%_anims\a_proportions.smd" "%survivorsFolder%\"
+	copy /y "%vpkpath%\Survivor_%sysTime%\%mdlFileNameSurvivor%_anims\a_proportions_corrective_animation.smd" "%survivorsFolder%\"
+	REM copy /y "%vpkpath%\Survivor_%sysTime%\%mdlFileNameSurvivor%_anims\reference.smd" "%survivorsFolder%\"
+	copy /y "%vpkpath%\Survivor_%sysTime%\*.qci" "%survivorsFolder%\"
+	)>nul 2>nul
 
 :: Weapons
 for /f "usebackq tokens=*" %%a in ("%appListWeapons%") do (
@@ -232,13 +241,13 @@ if exist "%mdlFileWeapon%" (
 	if not exist "%vpkpath%\Weapon_%sysTime%\%mdlFileNameWeapon%_animation.qci" (set "vpkMDLValid=0")
 	:: Tweak QC file
 	findstr /v /i "_animation.qci $modelname CrowbarDecompiler" "%vpkpath%\Weapon_%sysTime%\%mdlFileNameWeapon%.qc">>"%vpkpath%\Weapon_%sysTime%\1_main.qci"
-	:: Copy Files to Survivors Converting Tool
-	copy /y "%vpkpath%\Weapon_%sysTime%\*.smd" "%weaponsFolder%\">nul 2>nul
-	copy /y "%vpkpath%\Weapon_%sysTime%\*.qci" "%weaponsFolder%\">nul 2>nul
-	copy /y "%vpkpath%\Weapon_%sysTime%\*.vrd" "%weaponsFolder%\">nul 2>nul
-	) else (
+	:: Copy Files to user folder
+	copy /y "%vpkpath%\Weapon_%sysTime%\*.smd" "%weaponsFolder%\"
+	copy /y "%vpkpath%\Weapon_%sysTime%\*.qci" "%weaponsFolder%\"
+	copy /y "%vpkpath%\Weapon_%sysTime%\*.vrd" "%weaponsFolder%\"
+	)>nul 2>nul else (
 	set "vpkWeaponsExist=0"
-	)>nul 2>nul
+	)
 
 :ClearTempFiles
 :: Clear Extracted and Temp Files
@@ -270,10 +279,10 @@ if "%vpkMDLValid%" == "0" (echo,%uiProcFailedReason3%&echo,)
 echo,&echo,&echo,
 if "%vpkMDLValid%" == "1" (echo,%uiProcFailed0%)
 if "%vpkPortraitsExist%" == "0" if "%vpkSurvivorsExist%" == "0" if "%vpkWeaponsExist%" == "0" (
-	rd /s /q "%materialsFolder%">nul 2>nul
-	mkdir "%materialsFolder%">nul 2>nul
+	rd /s /q "%materialsFolder%"
+	mkdir "%materialsFolder%"
 	cls&echo,&echo,&echo,%uiProcFailed1%&echo,
-	)
+	)>nul 2>nul
 echo,&echo,&echo,
 echo,%uiProcFailed2%&pause>nul&exit
 

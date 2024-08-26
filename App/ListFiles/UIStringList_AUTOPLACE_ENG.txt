@@ -1,5 +1,5 @@
 ;Version
-versionDate=Aug 20, 2024
+versionDate=Aug 26, 2024
 ;Screen_Welcome
 uiWelcomeTitle=Auto Placing (%versionDate%)
 uiWelcome0=	To use this tool, it will perform cleanup first.
@@ -30,5 +30,5 @@ uiProcFailed2=	Press any key to exit...
 ;
 ;ProcessCompleteScreen
 uiProcComplete0=	- Finished. Would you like to COMPILE now?
-uiProcComplete1=	Detected animation: %oriAnims_info%. If the animation is incorrect, please make it correct in CONFIG page.
+uiProcComplete1=	Detected animation: %oriAnims_info%. If the animation is incorrect, please correct it in CONFIG page.
 uiProcComplete2=	Press any key to start COMPILE, or close the window...

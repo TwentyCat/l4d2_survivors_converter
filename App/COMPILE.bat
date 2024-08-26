@@ -301,33 +301,33 @@ if not defined charName (set "charName=%uiGInfo0%")
 goto GenerateInformation
 
 :Func_CheckFiles
-:: Check (1/2)
+:: Check 1st time
 set "check_userfiles_valid=1"
 set "check_appfiles_valid=1"
-:: User: Portraits
+:: User Portraits
 if not exist "%portraitsFolder%\i.vtf" (set "failReason4=1"&set "check_userfiles_valid=0")
 if not exist "%portraitsFolder%\l.vtf" (set "failReason4=1"&set "check_userfiles_valid=0")
 if not exist "%portraitsFolder%\s.vtf" (set "failReason4=1"&set "check_userfiles_valid=0")
-:: User: Survivors
+:: User Survivors
 if not exist "%survivorsFolder%\1_main.qci" (set "failReason8=1"&set "check_userfiles_valid=0")
-dir "%survivorsFolder%\*.smd" /b /s>nul 2>nul
+dir /b /s "%survivorsFolder%\*.smd">nul 2>nul
 if "%errorlevel%" == "1" (set "failReason8=1"&set "check_userfiles_valid=0")
-:: User: Weapons
+:: User Weapons
 if not exist "%weaponsFolder%\1_main.qci" (set "failReason9=1"&set "check_userfiles_valid=0")
-dir "%weaponsFolder%\*.smd" /b /s>nul 2>nul
+dir /b /s "%weaponsFolder%\*.smd">nul 2>nul
 if "%errorlevel%" == "1" (set "failReason9=1"&set "check_userfiles_valid=0")
-:: App: ListFiles
+:: App ListFiles
 if not exist "%appListBinGame%" (set "check_appfiles_valid=0")
 if not exist "%appListBinNekoMDL%" (set "check_appfiles_valid=0")
 if not exist "%appListPortraitsVMT%" (set "check_appfiles_valid=0")
 if not exist "%appListAddoninfoTXT%" (set "check_appfiles_valid=0")
 if not exist "%appListSurvivorsParms%" (set "check_appfiles_valid=0")
 if not exist "%appListCharNameSpecialChars%" (set "check_appfiles_valid=0")
-:: App: Default Studiomdl
+:: App Default Studiomdl
 for /f "usebackq eol=; delims=" %%i in ("%appListBinGame%") do (if not exist "%appBinFolder%\%%i" (set "check_appfiles_valid=0"))
-:: App: NekoMDL
+:: App NekoMDL
 for /f "usebackq eol=; delims=" %%i in ("%appListBinNekoMDL%") do (if not exist "%appBinNekoMDLFolder%\%%i" (set "check_appfiles_valid=0"))
-:: App: Gameinfo.txt
+:: App Gameinfo.txt
 if not exist "%appGameFolder%\left4dead2\gameinfo.txt" (set "check_appfiles_valid=0")
 :: Redirect
 if "%check_userfiles_valid%" == "0" (goto CheckFailed)
@@ -375,7 +375,7 @@ if defined retry (
 :: Reset Logs
 del /s "%logsFolder%\*_%sysTime%.log">nul 2>nul
 
-:: Check (2/2)
+:: Check 2nd times
 call :Func_CheckFiles
 :: Check User Params
 if not defined charName (set "check_charName_valid=0") else (set "check_charName_valid=1")
@@ -453,19 +453,19 @@ call title %uiCompileTitle1%
 goto Process_Wait_Loop
 
 :Process_WaitFinished
-:: Crate empty ERRORLOG.log
+:: Create empty ERRORLOG.log
 del /q "%appLogErrorTXT%">nul 2>nul
 type nul>>"%appLogErrorTXT%"
-:: When using NekoMDL, ignore the warns of "unmatched vertex anims"
+:: When using NekoMDL, ignore the warns of unmatched vertex anims
 if "%enable_nekomdl%" == "1" (
 	for %%a in ("%logsFolder%\*.log") do (
 		findstr /v /c:"unmatched vertex anims" "%%a">>"%%a.tmp"
-		)>nul 2>nul
+		)
 	for %%a in ("%logsFolder%\*.log") do (
 		del /q "%%a"
 		move /y "%%a.tmp" "%%a"
-		)>nul 2>nul
-	)
+		)
+	)>nul 2>nul
 :: Export warns to seperated log file
 for %%a in ("%logsFolder%\*.log") do (
 	findstr /i "warning unknown error" "%%a"
@@ -490,10 +490,9 @@ for /f "usebackq skip=%charSeq% eol=; tokens=1,2,3,4,5,6,7 delims=," %%a in ("%a
 	set "m2=%%g"
 	call set "enabled=enable_!currentChar!"
 	call set "enabled=%%!enabled!%%"
-	:: Redirect {
+	:: Redirect
 	if "!enabled!" == "0" (goto Process_WaitFinished)
 	if /i "!currentChar!" == "end" (set "charSeq=1"&goto Process_Finished)
-	:: Redirect }
 	:: Redefined directory param
 	set "targetFolder=%outputFolder%\%sysTime%_%charName%_!currentChar!"
 	set "targetFolderAddoninfo=!targetFolder!\addoninfo.txt"
@@ -566,7 +565,7 @@ if "%userInput%" == "1" (start "" "%appLogErrorTXT%")
 exit
 
 :CheckFailed
-:: Clear Failed Outputs {
+:: Clear Failed Outputs
 set "charSeq=1"
 :CheckFailedLoop
 for /f "usebackq skip=%charSeq% eol=; tokens=1,2,3,4,5,6,7 delims=," %%a in ("%appListSurvivorsParms%") do (
@@ -574,13 +573,11 @@ for /f "usebackq skip=%charSeq% eol=; tokens=1,2,3,4,5,6,7 delims=," %%a in ("%a
 	set "currentChar=%%a"
 	call set "enabled=enable_!currentChar!"
 	call set "enabled=%%!enabled!%%"
-	:: Redirect {
+	:: Redirect
 	if "!enabled!" == "0" (goto CheckFailedLoop)
 	if /i "!currentChar!" == "end" (set "charSeq=1")
-	:: Redirect }
 	rd /s /q "%outputFolder%\%sysTime%_%charName%_!currentChar!">nul 2>nul
 	)>nul 2>nul
-:: Clear Failed Outputs }
 call :Func_ClearCompileTempFiles
 :: Check if compiler exits without errors
 if not defined warning (set "compilerdead=1")
@@ -713,21 +710,21 @@ exit
 :Process_Compile
 set "targetFolder=%outputFolder%\%sysTime%_%charName%_%currentChar%"
 cls&echo,&echo,&call echo,%uiCompile0%&echo,&echo,
-:: (1/7) Clear Existed Logs
+:: 1 Clear Existed Logs
 del /q "%logsFolder%\%sysTime%_%currentChar%_Survivor.log">nul 2>nul
 del /q "%logsFolder%\%sysTime%_%currentChar%_Survivor_Light.log">nul 2>nul
 del /q "%logsFolder%\%sysTime%_%currentChar%_Weapon.log">nul 2>nul
-:: (2/7) Copy Materials
+:: 2 Copy Materials
 xcopy "%materialsFolder%\*.*" "%targetFolder%\materials\" /e /y>nul 2>nul
-:: (3/7) Move Addonimage.jpg
+:: 3 Move Addonimage.jpg
 move /y "%targetFolder%\materials\addonimage.jpg" "%targetFolder%\">nul 2>nul
-:: (4/7) Create Portraits
+:: 4 Create Portraits
 mkdir "%targetFolder%\materials\vgui\">nul 2>nul
-:: (4.1/7) Copy VTF
+:: 5 Copy VTF
 copy /y "%portraitsFolder%\s.vtf" "%targetFolder%\materials\vgui\%charName%_%currentChar%.vtf">nul 2>nul
 copy /y "%portraitsFolder%\i.vtf" "%targetFolder%\materials\vgui\%charName%_%currentChar%_Incap.vtf">nul 2>nul
 copy /y "%portraitsFolder%\l.vtf" "%targetFolder%\materials\vgui\%charName%_%currentChar%_Lobby.vtf">nul 2>nul
-:: (4.2/7) Create VMT
+:: 6 Create VMT
 set "ptab=	"
 for /L %%a in (1,1,3) do (
 	set "vmtSeq="
@@ -735,15 +732,15 @@ for /L %%a in (1,1,3) do (
 	call set "vmtFileName=%%p!vmtSeq!%%"
 	set "loopSeq=0"
 	set "vmtTempString="
-	:: (1/3) Panel
+	:: 1 Panel
 	if "!vmtSeq!" == "1" (
 		for /f "usebackq eol=; delims=" %%i in ("%appListPortraitsVMT%") do (set "vmtTempString=%ptab%"$basetexture"%ptab%"VGUI\%charName%_%currentChar%"")
 		)
-	:: (2/3) Incap
+	:: 2 Incap
 	if "!vmtSeq!" == "2" (
 		for /f "usebackq eol=; delims=" %%i in ("%appListPortraitsVMT%") do (set "vmtTempString=%ptab%"$basetexture"%ptab%"VGUI\%charName%_%currentChar%_Incap"")
 		)
-	:: (3/3) Lobby
+	:: 3 Lobby
 	if "!vmtSeq!" == "3" (
 		for /f "usebackq eol=; delims=" %%i in ("%appListPortraitsVMT%") do (set "vmtTempString=%ptab%"$basetexture"%ptab%"VGUI\%charName%_%currentChar%_Lobby"")
 		)
@@ -753,7 +750,7 @@ for /L %%a in (1,1,3) do (
 		echo %%i>>"%targetFolder%\materials\vgui\!vmtFileName!.vmt"
 		)
 	)
-:: (5/7) Create Addoninfo Using UTF-8
+:: 7 Create Addoninfo Using UTF-8
 chcp 65001>nul 2>nul
 set "targetFolderAddoninfo=%targetFolder%\addoninfo.txt"
 copy /y "%appFolder%\Addoninfo\addoninfo.txt" "%targetFolderAddoninfo%">nul 2>nul
@@ -764,54 +761,53 @@ for /f "usebackq eol=; delims=" %%i in ("%appListAddoninfoTXT%") do (
 	echo %%i>>"%targetFolderAddoninfo%"
 	)
 cls&echo,&echo,&call echo,%uiCompile0%
-:: (6/7) Prepare for Compiling
+:: 8 Prepare for Compiling
 if "%enable_nekomdl%" == "1" (set "studiomdlExec=%appBinNekoMDLExec%") else (set "studiomdlExec=%appBinExec%")
 set "studiomdlOpt=-game "%appGameFolder%\left4dead2" -nop4 -verbose"
 set "targetFolderSurvivors=%targetFolder%\models\survivors"
 set "targetFolderWeapons=%targetFolder%\models\weapons\arms"
-:: (6.1/7) Weapon Model
+:: 9 Weapon Model
 set "curCommand=weapon"
 set "curQCName=%currentChar%"
 set "curLogName=%sysTime%_%currentChar%_Weapon"
 xcopy "%appWeaponsFolder%\ANIMS\*.*" "%weaponsFolder%\ANIMS\" /e /y>nul 2>nul
 copy /y "%appWeaponsFolder%\%currentChar%.qc" "%weaponsFolder%\">nul 2>nul
 start /min "" "%appCompileCommand%"
-:: (6.2/7) Survivor Model
+:: 10 Survivor Model
 xcopy "%appSurvivorsFolder%\ANIMS\*.*" "%survivorsFolder%\ANIMS\" /e /y>nul 2>nul
-:: Check Proportions {
+:: Check Proportions
 set "proportionsExists=0"
 if exist "%survivorsFolder%\a_proportions.smd" (set "proportionsExists=1")
 if exist "%survivorsFolder%\a_proportions_corrective_animation.smd" (set "proportionsExists=1")
-:: Case0: Proportions Not Exists
+:: Case0 Proportions Not Exists
 if "%proportionsExists%" == "0" (
 	set "curCommand=survivor_nop"
 	set "curQCName=%oriAnims%2%currentChar%_NoProportions"
 	set "curLogName=%sysTime%_%currentChar%_Survivor"
-	copy /y "%appSurvivorsFolder%\%oriAnims%2%currentChar%_NoProportions.qc" "%survivorsFolder%\">nul 2>nul
+	copy /y "%appSurvivorsFolder%\%oriAnims%2%currentChar%_NoProportions.qc" "%survivorsFolder%\"
 	start /min "" "%appCompileCommand%"
 	if "%light%" == "1" (
 		set "curCommand=survivor_light_nop"
 		set "curQCName=%oriAnims%2%currentChar%_light_NoProportions"
 		set "curLogName=%sysTime%_%currentChar%_Survivor_Light"
-		copy /y "%appSurvivorsFolder%\%oriAnims%2%currentChar%_light_NoProportions.qc" "%survivorsFolder%\">nul 2>nul
+		copy /y "%appSurvivorsFolder%\%oriAnims%2%currentChar%_light_NoProportions.qc" "%survivorsFolder%\"
 		start /min "" "%appCompileCommand%"
 		)
-	)
-:: Case1: Proportions Exists
+	)>nul 2>nul
+:: Case1 Proportions Exists
 if "%proportionsExists%" == "1" (
 	set "curCommand=survivor"
 	set "curQCName=%oriAnims%2%currentChar%"
 	set "curLogName=%sysTime%_%currentChar%_Survivor"
-	copy /y "%appSurvivorsFolder%\%oriAnims%2%currentChar%.qc" "%survivorsFolder%\">nul 2>nul
+	copy /y "%appSurvivorsFolder%\%oriAnims%2%currentChar%.qc" "%survivorsFolder%\"
 	start /min "" "%appCompileCommand%"
 	if "%light%" == "1" (
 		set "curCommand=survivor_light"
 		set "curQCName=%oriAnims%2%currentChar%_light"
 		set "curLogName=%sysTime%_%currentChar%_Survivor_Light"
-		copy /y "%appSurvivorsFolder%\%oriAnims%2%currentChar%_light.qc" "%survivorsFolder%\">nul 2>nul
+		copy /y "%appSurvivorsFolder%\%oriAnims%2%currentChar%_light.qc" "%survivorsFolder%\"
 		start /min "" "%appCompileCommand%"
 		)
-	)
-:: Check Proportions }
-:: Sub-processes exit
+	)>nul 2>nul
+:: Subprocesses exit
 exit
