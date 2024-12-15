@@ -1,0 +1,12 @@
+;CheckSystemVariable
+uiCheckTitle=正在检查系统变量...
+uiCheck0=	工具检测到您的系统变量有问题，导致本工具无法使用。
+uiCheck1=	若需修复，请按“Y”然后回车，在弹出的UAC、警告框都点击“是”。
+uiCheck2=	注册表导入后，请重启电脑再尝试运行工具。
+uiCheck3=按“Y”然后回车，不作修复则请关闭窗口：
+uiCheck4_0=	导入后，若不想重启，可以进行以下操作：
+uiCheck4_1=	1、按Win+R打开运行框。
+uiCheck4_2=	2、输入sysdm.cpl，然后回车。
+uiCheck4_3=	3、点击“高级”---“环境变量”---“确定”。
+uiCheck4_4=	4、再次运行工具。
+uiCheck5=	按任意键退出...

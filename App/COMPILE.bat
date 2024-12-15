@@ -1,59 +1,24 @@
-:: Pre-defined Params
 @echo off&setlocal EnableDelayedExpansion
 
-if /i "%lang%"=="eng" (set "appListUITXT=UIStringList_COMPILE_ENG"&mode con cols=120 lines=32)
-if /i "%lang%"=="chs" (set "appListUITXT=UIStringList_COMPILE_CHS"&mode con cols=120 lines=30)
+if /i "%lang%"=="eng" (set "appListUITXT0=UIStringList_COMPILE_ENG"&set "appListUITXT1=UIStringList_SYSTEMVARCHECKER_ENG")
+if /i "%lang%"=="chs" (set "appListUITXT0=UIStringList_COMPILE_CHS"&set "appListUITXT1=UIStringList_SYSTEMVARCHECKER_CHS")
 
 :: Redirect to Process_Compile if is compiling
 if defined compiling (goto Process_Compile)
-set "materialsFolder=%toolPath%1_Materials"
-set "portraitsFolder=%toolPath%2_Portraits"
-set "survivorsFolder=%toolPath%3_Survivors"
-set "weaponsFolder=%toolPath%4_Weapons"
-set "outputFolder=%toolPath%5_OUTPUT"
-set "logsFolder=%toolPath%6_LOGS"
+
+:: Load Initial Script
 set "appFolder=%toolPath%App"
+set "appSharedInit=%appFolder%\SHAREDINIT.bat"
+if not exist "%appSharedInit%" (exit) else (call "%appSharedInit%")
 
-set "appListFolder=%appFolder%\ListFiles"
-set "appAddoninfoFolder=%appFolder%\Addoninfo"
-set "appGameFolder=%appFolder%\Game"
-set "appBinFolder=%appGameFolder%\bin"
-set "appBinNekoMDLFolder=%appGameFolder%\bin_nekomdl"
-set "appBinExec=%appBinFolder%\studiomdl.exe"
-set "appBinNekoMDLExec=%appBinNekoMDLFolder%\nekomdl.exe"
-set "appPortraitsFolder=%appFolder%\Portraits"
-set "appPortraitsFolderTXT=%appPortraitsFolder%\ReadME.txt"
-set "appSurvivorsFolder=%appFolder%\Survivors"
-set "appWeaponsFolder=%appFolder%\Weapons"
-set "appConfig=%appFolder%\config.ini"
-set "appConfigDef=%appFolder%\config_default.ini"
-set "appConfigSaveString=empty"
-set "appListUI=%appListFolder%\%appListUITXT%.txt"
-set "appListSurvivorsParms=%appListFolder%\SurvivorParmList.txt"
-set "appListAddoninfoTXT=%appListFolder%\AddoninfoContentList.txt"
-set "appListBinGame=%appListFolder%\BinGameFileList.txt"
-set "appListBinNekoMDL=%appListFolder%\BinNekoFileList.txt"
-set "appListPortraitsVMT=%appListFolder%\VMTContentList.txt"
-set "appListCharNameSpecialChars=%appListFolder%\CharNameSpecialCharsList.txt"
-set "appCompileCommand=%appFolder%\COMPILE_COMMANDS.bat"
-set "appLogErrorTXT=%logsFolder%\ERRORLOG.log"
-
-set "outputFolderSurvivors=%appGameFolder%\left4dead2\models\survivors"
-set "outputFolderWeapons=%appGameFolder%\left4dead2\models\weapons\arms"
-
+:: Reset Temp Parms
 set "failPortraits=0"
 set "failAddoninfo=0"
 set "failSurvivorModels=0"
 set "failWeaponModels=0"
-
 set "config=0"
 set "sysTime=null"
 set "currentChar=null"
-
-:: Load UI Strings
-if not defined toolPath (cd..&set "toolPath=!cd!\")
-if not exist "%appListUI%" (exit)
-for /f "usebackq eol=; tokens=1,2 delims==" %%a in ("%appListUI%") do (set "%%a=%%b")
 
 :: Check consistency of directories
 if not exist "%materialsFolder%" (set "failReason3=1"&goto CheckFailed)
@@ -107,17 +72,17 @@ if not defined enable_nekomdl_largebuffer (set "enable_nekomdl_largebuffer=0")
 :: Generate Information
 goto CharNameCheck_0
 :GenerateInformation
-set "enable_info_line1="
-set "enable_info_line2="
+set "enable_info_line="
 set "enable_num=0"
-if "%enable_Nick%" == "1" (set /a "enable_num=%enable_num%+1"&set "enable_info_line1=%enable_info_line1%Nick ")
-if "%enable_Rochelle%" == "1" (set /a "enable_num=%enable_num%+1"&set "enable_info_line1=%enable_info_line1%Rochelle ")
-if "%enable_Coach%" == "1" (set /a "enable_num=%enable_num%+1"&set "enable_info_line1=%enable_info_line1%Coach ")
-if "%enable_Ellis%" == "1" (set /a "enable_num=%enable_num%+1"&set "enable_info_line1=%enable_info_line1%Ellis ")
-if "%enable_Bill%" == "1" (set /a "enable_num=%enable_num%+1"&set "enable_info_line2=%enable_info_line2%Bill ")
-if "%enable_Zoey%" == "1" (set /a "enable_num=%enable_num%+1"&set "enable_info_line2=%enable_info_line2%Zoey ")
-if "%enable_Louis%" == "1" (set /a "enable_num=%enable_num%+1"&set "enable_info_line2=%enable_info_line2%Louis ")
-if "%enable_Francis%" == "1" (set /a "enable_num=%enable_num%+1"&set "enable_info_line2=%enable_info_line2%Francis ")
+if "%enable_Nick%" == "1" (set /a "enable_num=%enable_num%+1"&set "enable_info_line=%enable_info_line%Nick, ")
+if "%enable_Rochelle%" == "1" (set /a "enable_num=%enable_num%+1"&set "enable_info_line=%enable_info_line%Rochelle, ")
+if "%enable_Coach%" == "1" (set /a "enable_num=%enable_num%+1"&set "enable_info_line=%enable_info_line%Coach, ")
+if "%enable_Ellis%" == "1" (set /a "enable_num=%enable_num%+1"&set "enable_info_line=%enable_info_line%Ellis, ")
+if "%enable_Bill%" == "1" (set /a "enable_num=%enable_num%+1"&set "enable_info_line=%enable_info_line%Bill, ")
+if "%enable_Zoey%" == "1" (set /a "enable_num=%enable_num%+1"&set "enable_info_line=%enable_info_line%Zoey, ")
+if "%enable_Louis%" == "1" (set /a "enable_num=%enable_num%+1"&set "enable_info_line=%enable_info_line%Louis, ")
+if "%enable_Francis%" == "1" (set /a "enable_num=%enable_num%+1"&set "enable_info_line=%enable_info_line%Francis")
+if /i "%enable_num%" LEQ "1" (set enable_info_line=%enable_info_line:,=%)
 
 set "oriAnims_info=null"
 if /i "%oriAnims%" == "nick" (set "oriAnims_info=%uiGInfo1%")
@@ -149,6 +114,8 @@ del /q "%appFolder%\*.lastrun">nul 2>nul
 type nul>>"%appFolder%\%charName%.lastrun"
 
 :UI_Welcome
+if /i "%lang%"=="eng" (mode con cols=120 lines=32)
+if /i "%lang%"=="chs" (mode con cols=120 lines=30)
 cls&color 0A&call title %uiWelcomeTitle%
 echo,&echo,
 echo,%uiWelcome0%

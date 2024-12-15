@@ -6,7 +6,18 @@
 # by: starfelll
 # https://steamcommunity.com/sharedfiles/filedetails/?id=3142607978
 
+Supports glTF, FBX, VRM and other formats. Please set the DMX export version to Binary5 Model 18.
+Due to a compiler algorithm bug, too many vertices of a material in a single file (the exact number is uncertain) will cause a stack overflow, so the file will be automatically split when the number of vertices in a single file exceeds $MaxVerts.
+When the compilation of a complex model fails (the generation of the vtx file is interrupted), try to reduce $MaxVerts and increase $FileBufferSize (8/16/32/64/...).
+Supports up to 128 materials.
+For other features, please refer to the attached changelog and NewCommands.qci
+
 [h2]Changelog[/h2]
+
+[h3]v2.1.2[/h3]
+[list]
+[*]New qc command: $MaxBones
+[/list]
 
 [h3]v2.1.1[/h3]
 [list]

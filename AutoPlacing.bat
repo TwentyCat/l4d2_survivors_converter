@@ -1,3 +1,4 @@
+@echo off
 pushd %~dp0
 set "file=%1"
 set "fileExt=%~x1"

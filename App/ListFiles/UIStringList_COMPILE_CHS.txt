@@ -1,8 +1,8 @@
 ;Version
-version=2.5.1
-versionDate=20240826
-versionBin=20240626°æ
-versionNekoMDL=2.1.1
+version=2.5.2
+versionDate=20241214
+versionBin=20241025°æ
+versionNekoMDL=2.1.2
 ;Generate Information
 uiGInfo0=´ı¶¨
 uiGInfo1=Äá¿Ë Nick
@@ -20,7 +20,7 @@ uiWelcomeTitle=8ÈË×é×ª»»¹¤¾ß %version% by 20Cat£¨space.bilibili.com/5096979£©±¾¹
 uiWelcome0=	»¶Ó­Ê¹ÓÃ£¡Ê¹ÓÃÇ°£¬ÇëÏÈÔÄ¶Á½Ì³Ì£¬ÉèÖÃºÃÒÔÏÂ²ÎÊı£¬²¢È·±£ÌùÍ¼¡¢Í·Ïñ¡¢Ä£ĞÍSMDµÈÎÄ¼şÒÑ¾­·ÅÖÃºÃ£¡
 uiWelcome1=	ÈËÎïÃû³Æ£º	¡°%charName%¡±
 uiWelcome2=	ÈËÎï¶¯×÷£º	%oriAnims_info%
-uiWelcome3=	×ª»»½ÇÉ«£º	%enable_num%¸ö£º%enable_info_line1%%enable_info_line2%
+uiWelcome3=	×ª»»½ÇÉ«£º	%enable_num%¸ö£º%enable_info_line%
 uiWelcome4=	±àÒë¹¤¾ß£º	%bin_info%
 uiWelcome5=	¡¾A¡¿½øÈëÅäÖÃÒ³Ãæ
 uiWelcome6=				¡¾£¡£¡£¡Ä£ĞÍ°æÈ¨ÌáÊ¾£¡£¡£¡¡¿
@@ -47,7 +47,7 @@ uiConfig12=	ÈËÎïÃû³Æ£º	¡°%charName%¡±%uiConfig19%
 uiConfig13=	¡¾ÌáÊ¾¡¿ÇëÖ¸¶¨ÈËÎï¶¯×÷£¡
 uiConfig14=	ÈËÎï¶¯×÷£º	%oriAnims_info%
 uiConfig15=	¡¾ÌáÊ¾¡¿ÇëÖÁÉÙÑ¡ÔñÒ»¸ö×ª»»½ÇÉ«£¡
-uiConfig16=	×ª»»½ÇÉ«£º	%enable_num%¸ö£º%enable_info_line1%%enable_info_line2%
+uiConfig16=	×ª»»½ÇÉ«£º	%enable_num%¸ö£º%enable_info_line%
 uiConfig17=	±àÒë¹¤¾ß£º	NekoMDL
 uiConfig18=	±àÒë¹¤¾ß£º	ÓÎÏ·Ô­°æ
 uiConfig19=	¡¾S¡¿ĞŞ¸ÄÈËÎïÃû³Æ
