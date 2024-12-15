@@ -1,31 +1,12 @@
-:: Pre-defined Params
 @echo off&setlocal EnableDelayedExpansion
 
-if /i "%lang%"=="eng" (set "appListUITXT=UIStringList_AUTOPLACE_ENG"&mode con cols=120 lines=32)
-if /i "%lang%"=="chs" (set "appListUITXT=UIStringList_AUTOPLACE_CHS"&mode con cols=120 lines=30)
+if /i "%lang%"=="eng" (set "appListUITXT0=UIStringList_AUTOPLACE_ENG"&set "appListUITXT1=UIStringList_SYSTEMVARCHECKER_ENG")
+if /i "%lang%"=="chs" (set "appListUITXT0=UIStringList_AUTOPLACE_CHS"&set "appListUITXT1=UIStringList_SYSTEMVARCHECKER_CHS")
 
-set "materialsFolder=%toolPath%\1_Materials"
-set "portraitsFolder=%toolPath%\2_Portraits"
-set "survivorsFolder=%toolPath%\3_Survivors"
-set "weaponsFolder=%toolPath%\4_Weapons"
+:: Load Initial Script
 set "appFolder=%toolPath%App"
-
-set "appListFolder=%appFolder%\ListFiles"
-set "appVPKConverterFolder=%appFolder%\VPKConverter"
-set "appVPKConverterExec=%appVPKConverterFolder%\vpk.exe"
-set "appCrowbarDecompilerFolder=%appFolder%\CrowbarDecompiler"
-set "appCrowbarDecompilerExec=%appCrowbarDecompilerFolder%\CrowbarDecompiler.exe"
-
-set "appListUI=%appListFolder%\%appListUITXT%.txt"
-set "appListPortraits=%appListFolder%\PortraitFileNameList.txt"
-set "appListSurvivors=%appListFolder%\SurvivorFileNameList.txt"
-set "appListSurvivorsAnims=%appListFolder%\SurvivorAnimList.txt"
-set "appListWeapons=%appListFolder%\WeaponFileNameList.txt"
-
-:: Load UI Strings
-if not defined toolPath (cd..&set "toolPath=!cd!\")
-if not exist "%appListUI%" (exit)
-for /f "usebackq eol=; tokens=1,2 delims==" %%a in ("%appListUI%") do (set "%%a=%%b")
+set "appSharedInit=%appFolder%\SHAREDINIT.bat"
+if not exist "%appSharedInit%" (exit) else (call "%appSharedInit%")
 
 :: Self Check
 if not defined file (set "failReason0=1"&goto CheckFailScreen)
@@ -42,7 +23,9 @@ rename %file% "%fileNameWithExt%">nul 2>nul
 if "%errorlevel%" == "1" (set "failReason3=1"&goto CheckFailScreen)
 
 :Screen_Welcome
-cls & color 0A &call title %uiWelcomeTitle%
+if /i "%lang%"=="eng" (mode con cols=120 lines=32)
+if /i "%lang%"=="chs" (mode con cols=120 lines=30)
+cls&color 0A&call title %uiWelcomeTitle%
 echo,&echo,
 echo,%uiWelcome0%
 echo,&echo,

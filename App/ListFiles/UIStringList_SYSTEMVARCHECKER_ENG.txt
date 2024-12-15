@@ -1,0 +1,12 @@
+;CheckSystemVariable
+uiCheckTitle=Checking System Varibles...
+uiCheck0=	Your System Varibles seems to be corrupted, which needs to be fixed.
+uiCheck1=	Press Y and Enter to fix it. Press Yes in both pop-up dialog of UAC and Registry.
+uiCheck2=	After fixed, please restart your computer and run this tool again.
+uiCheck3=Press Y and Enter, or close the window without fix: 
+uiCheck4_0=	If you don't want to reboot, please follow these steps:
+uiCheck4_1=	1. Press Win+R.
+uiCheck4_2=	2. Type sysdm.cpl into the dialog, and press Enter.
+uiCheck4_3=	3. Click on Advanced --- Environment Variables... --- Press OK.
+uiCheck4_4=	4. Then try to run this tool again.
+uiCheck5=	Press any key to exit...

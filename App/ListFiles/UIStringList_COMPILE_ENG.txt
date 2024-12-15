@@ -1,8 +1,8 @@
 ;Version
-version=2.5.1
-versionDate=Aug 26, 2024
-versionBin=June 26, 2024
-versionNekoMDL=2.1.1
+version=2.5.2
+versionDate=Dec 14, 2024
+versionBin=Oct 25, 2024
+versionNekoMDL=2.1.2
 ;Generate Information
 uiGInfo0=NULL
 uiGInfo1=Nick
@@ -16,17 +16,17 @@ uiGInfo8=Louis
 uiGInfo9=NekoMDL %versionNekoMDL% by Starfelll  L4D2 Workshop Item ID: 3142607978
 uiGInfo10=L4D2-AT %versionBin%
 ;Screen_Welcome
-uiWelcomeTitle=L4D2 Survivors Converter %version% by 20Cat steamcommunity.com/id/20cat  FREE, NO COMERCIAL USE  Version: %versionDate%
-uiWelcome0=	Welcome. Please ensure that necessary files are in place before you start compile.
+uiWelcomeTitle=L4D2 Survivors Converter %version% by 20Cat [steamcommunity.com/id/20cat] FREE, NO COMERCIAL USE  Version: %versionDate%
+uiWelcome0=	Welcome. Please ensure the necessary files are ready before you start compile.
 uiWelcome1=	Name:		"%charName%"
 uiWelcome2=	Animation:	%oriAnims_info%
-uiWelcome3=	Characters:	%enable_num% - %enable_info_line1%%enable_info_line2%
+uiWelcome3=	Characters:	%enable_num% - %enable_info_line%
 uiWelcome4=	Compiler:	%bin_info%
 uiWelcome5=	A - CONFIG Page
 uiWelcome6=				ATTENTION: Copyright Issue
-uiWelcome7=	Do not upload or publish ANY addons created by this tool to ANY website, unless you're the owner of that containing model, or granted permission from the original author. After publishment, you must obey relevant user agreements of website. Creator of this tool is not responsible for your illegal behaviour. 
+uiWelcome7=	Do not upload or publish ANY addons created by this tool to ANY website, unless you're the owner of that containing model, or granted permission from the original author. To publish addons, You must obey relevant user agreements of website. Creator of this tool is not responsible for your illegal behaviour. 
 uiWelcome8=	 
-uiWelcome9=	Start compile if you agree the terms above.
+uiWelcome9=	Start compile if you agree with the terms above.
 uiWelcome10=Hit A: CONFIG, D: Start compile:
 ;
 ;Screen_Config
@@ -47,7 +47,7 @@ uiConfig12=	Name:		"%charName%"%uiConfig19%
 uiConfig13=	Info: Please specify Animation.
 uiConfig14=	Animation:	%oriAnims_info%
 uiConfig15=	Info: Please specify at lease one character.
-uiConfig16=	Character:	Num: %enable_num% : %enable_info_line1%%enable_info_line2%
+uiConfig16=	Character:	Num: %enable_num% : %enable_info_line%
 uiConfig17=	Compiler:	NekoMDL
 uiConfig18=	Compiler:	L4D2-AT
 uiConfig19=	S - Change Character Name
@@ -108,12 +108,12 @@ uiEnd7=Type 1 and Enter, or Enter directly:
 ;
 ;ClearMode
 uiClearTitle=Clear Mode
-uiClear0=	Are you sure to perform cleanup? All compiling files and logs will be deleted...
-uiClear1=	Press any key twice to perform cleanup...
+uiClear0=	Confirm to perform cleanup? All compiling files and logs will be deleted...
+uiClear1=	Press any key twice to continue...
 uiClear2=	Press again...
 ;
 ;ResetMode
 uiResetTitle=Reset Mode
-uiReset0=	Are you sure to reset? All compiling files, configs, outputs, logs will be deleted...
-uiReset1=	Press any key twice to reset...
+uiReset0=	Confirm to reset? All compiling files, configs, outputs, logs will be deleted...
+uiReset1=	Press any key twice to continue...
 uiReset2=	Press again...
