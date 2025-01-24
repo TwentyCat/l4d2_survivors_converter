@@ -1,5 +1,11 @@
 @echo off&setlocal EnableDelayedExpansion
 
+:: Prevent user from running multiple processes of this tool
+tasklist | find /i "nekomdl_8tools.exe"
+tasklist | find /i "studiomdl_8tools.exe"
+if %errorlevel%==0 (exit)
+
+:: Load translations
 if /i "%lang%"=="eng" (set "appListUITXT0=UIStringList_COMPILE_ENG"&set "appListUITXT1=UIStringList_SYSTEMVARCHECKER_ENG")
 if /i "%lang%"=="chs" (set "appListUITXT0=UIStringList_COMPILE_CHS"&set "appListUITXT1=UIStringList_SYSTEMVARCHECKER_CHS")
 
@@ -302,15 +308,27 @@ if "%check_appfiles_valid%" == "0" (set "failReason3=1"&goto CheckFailed)
 goto :EOF
 
 :Process_Start
+:: Force quit compiler & Delete failed outputs before start processing
+set "lastProcTime=null"
+if exist "%appFolder%\*.processing" (
+	taskkill /im "nekomdl_8tools.exe" /f
+	taskkill /im "studiomdl_8tools.exe" /f
+	for /f "tokens=*" %%a in ('dir /a /b "%appFolder%\*.processing"') do (set "lastProcTime=%%~na")
+	for /f "tokens=*" %%b in ('dir /a /b "%outputFolder%\" ^| findstr /i "!lastProcTime!"') do (rd /s /q "%outputFolder%\%%b")
+	del /q "%appFolder%\*.processing"
+)>nul 2>nul
+
 :: Delete temp files before start processing
 call :Func_ClearCompileTempFiles
 del /q "%logsFolder%\*.log">nul 2>nul
 del /q "%outputFolderSurvivors%\*.mdl">nul 2>nul
 del /q "%outputFolderSurvivors%\*.vtx">nul 2>nul
 del /q "%outputFolderSurvivors%\*.vvd">nul 2>nul
+del /q "%outputFolderSurvivors%\*.phy">nul 2>nul
 del /q "%outputFolderWeapons%\*.mdl">nul 2>nul
 del /q "%outputFolderWeapons%\*.vtx">nul 2>nul
 del /q "%outputFolderWeapons%\*.vvd">nul 2>nul
+
 :: Generate Systime
 for /l %%i in (0,1,9) do (if "%time:~0,2%" == "%%i" (set "sysTimeHour=0%%i") else (set "sysTimeHour=%time:~0,2%"))
 set "sysTime=%date%_%sysTimeHour%%time:~3,2%%time:~6,2%"
@@ -319,6 +337,8 @@ set "sysTime=%sysTime:/=%"
 set "sysTime=%sysTime:\=%"
 set "sysTime=%sysTime:-=%"
 :Process_Retry
+:: Add a processing tag before start processing
+type nul>>"%appFolder%\%sysTime%.processing"
 :: Reset Params if Retrying
 if defined retry (
 	set "failPortraits=0"
@@ -412,7 +432,7 @@ timeout /t 2 /nobreak>nul
 :Process_Wait_Loop
 timeout /t 1 /nobreak>nul
 set threadCount=0
-for /f "tokens=*" %%a in ('tasklist ^| findstr /i "nekomdl.exe studiomdl.exe"') do (
+for /f "tokens=*" %%a in ('tasklist ^| findstr /i "nekomdl_8tools.exe studiomdl_8tools.exe"') do (
 	set /a "threadCount=threadCount+1"
 	)
 if "%threadCount%" == "0" (goto Process_WaitFinished)
@@ -501,6 +521,8 @@ for /f "usebackq skip=%charSeq% eol=; tokens=1,2,3,4,5,6,7 delims=," %%a in ("%a
 
 :Process_Finished
 call :Func_ClearCompileTempFiles
+:: Delete processing tag
+del /q "%appFolder%\%sysTime%.processing">nul 2>nul
 
 :UI_End
 cls&color 0A&title %uiEndTitle%
@@ -532,6 +554,8 @@ if "%userInput%" == "1" (start "" "%appLogErrorTXT%")
 exit
 
 :CheckFailed
+:: Delete processing tag
+del /q "%appFolder%\%sysTime%.processing">nul 2>nul
 :: Clear Failed Outputs
 set "charSeq=1"
 :CheckFailedLoop
@@ -651,6 +675,7 @@ del /q "%weaponsFolder%\*.qc">nul 2>nul
 del /q "%weaponsFolder%\*_flex.qci">nul 2>nul
 del /q "%weaponsFolder%\*_lod.qci">nul 2>nul
 del /q "%logsFolder%\*.log">nul 2>nul
+copy /y "%appPortraitsVTFFPSDef%" "%outputPortraitsVTFFPS%">nul 2>nul
 if defined modeClearConfirmed (goto AutoPlacingToolStart>nul 2>nul) else (exit)
 
 :ResetMode
@@ -663,6 +688,7 @@ echo,%uiReset1%&pause>nul
 echo,&echo,%uiReset2%&pause>nul
 rd /s /q "%materialsFolder%"&mkdir "%materialsFolder%">nul 2>nul
 rd /s /q "%portraitsFolder%"&mkdir "%portraitsFolder%">nul 2>nul
+copy /y "%appPortraitsVTFFPSDef%" "%outputPortraitsVTFFPS%">nul 2>nul
 rd /s /q "%survivorsFolder%"&mkdir "%survivorsFolder%">nul 2>nul
 rd /s /q "%weaponsFolder%"&mkdir "%weaponsFolder%">nul 2>nul
 rd /s /q "%outputFolder%"&mkdir "%outputFolder%">nul 2>nul
@@ -692,13 +718,13 @@ copy /y "%portraitsFolder%\s.vtf" "%targetFolder%\materials\vgui\%charName%_%cur
 copy /y "%portraitsFolder%\i.vtf" "%targetFolder%\materials\vgui\%charName%_%currentChar%_Incap.vtf">nul 2>nul
 copy /y "%portraitsFolder%\l.vtf" "%targetFolder%\materials\vgui\%charName%_%currentChar%_Lobby.vtf">nul 2>nul
 :: 6 Create VMT
-set "ptab=	"
 for /L %%a in (1,1,3) do (
 	set "vmtSeq="
 	set "vmtSeq=%%a"
 	call set "vmtFileName=%%p!vmtSeq!%%"
 	set "loopSeq=0"
 	set "vmtTempString="
+	:: line basetexture
 	:: 1 Panel
 	if "!vmtSeq!" == "1" (
 		for /f "usebackq eol=; delims=" %%i in ("%appListPortraitsVMT%") do (set "vmtTempString=%ptab%"$basetexture"%ptab%"VGUI\%charName%_%currentChar%"")
@@ -711,12 +737,34 @@ for /L %%a in (1,1,3) do (
 	if "!vmtSeq!" == "3" (
 		for /f "usebackq eol=; delims=" %%i in ("%appListPortraitsVMT%") do (set "vmtTempString=%ptab%"$basetexture"%ptab%"VGUI\%charName%_%currentChar%_Lobby"")
 		)
+	:: Write VMT
 	for /f "usebackq eol=; delims=" %%i in ("%appListPortraitsVMT%") do (
+		set "vtfFPSTempStringWritten="
 		set /a "loopSeq=loopSeq+1"
 		if "!loopSeq!" == "3" (echo !vmtTempString!>>"%targetFolder%\materials\vgui\!vmtFileName!.vmt")
+		if "!loopSeq!" == "15" (
+		:: line animatedTextureFrameRate
+		if exist "%outputPortraitsVTFFPS%" (
+			for /f "usebackq eol=; tokens=1,2 delims=," %%j in ("%outputPortraitsVTFFPS%") do (
+				if "%%j" == "s" (if "!vmtSeq!" == "1" (if not defined vtfFPSTempStringWritten (
+					echo %ptab%%ptab%"animatedTextureFrameRate"%ptab%"%%k">>"%targetFolder%\materials\vgui\!vmtFileName!.vmt"
+					set "vtfFPSTempStringWritten=1"
+				)))
+				if "%%j" == "i" (if "!vmtSeq!" == "2" (if not defined vtfFPSTempStringWritten (
+					echo %ptab%%ptab%"animatedTextureFrameRate"%ptab%"%%k">>"%targetFolder%\materials\vgui\!vmtFileName!.vmt"
+					set "vtfFPSTempStringWritten=1"
+				)))
+				if "%%j" == "l" (if "!vmtSeq!" == "3" (if not defined vtfFPSTempStringWritten (
+					echo %ptab%%ptab%"animatedTextureFrameRate"%ptab%"%%k">>"%targetFolder%\materials\vgui\!vmtFileName!.vmt"
+					set "vtfFPSTempStringWritten=1"
+				)))
+				)
+			)
+		)
+		:: Other lines
 		echo %%i>>"%targetFolder%\materials\vgui\!vmtFileName!.vmt"
 		)
-	)
+	)>nul 2>nul
 :: 7 Create Addoninfo Using UTF-8
 chcp 65001>nul 2>nul
 set "targetFolderAddoninfo=%targetFolder%\addoninfo.txt"

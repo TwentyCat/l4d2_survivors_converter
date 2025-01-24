@@ -1,8 +1,8 @@
 ;Version
-version=2.5.2
-versionDate=Dec 14, 2024
+version=2.5.3
+versionNekoMDL=2.1.3
+versionDate=Jan 24, 2025
 versionBin=Oct 25, 2024
-versionNekoMDL=2.1.2
 ;Generate Information
 uiGInfo0=NULL
 uiGInfo1=Nick

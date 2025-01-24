@@ -1,5 +1,11 @@
 @echo off&setlocal EnableDelayedExpansion
 
+:: Prevent user from running multiple processes of this tool
+tasklist | find /i "nekomdl_8tools.exe"
+tasklist | find /i "studiomdl_8tools.exe"
+if %errorlevel%==0 (exit)
+
+:: Load translations
 if /i "%lang%"=="eng" (set "appListUITXT0=UIStringList_AUTOPLACE_ENG"&set "appListUITXT1=UIStringList_SYSTEMVARCHECKER_ENG")
 if /i "%lang%"=="chs" (set "appListUITXT0=UIStringList_AUTOPLACE_CHS"&set "appListUITXT1=UIStringList_SYSTEMVARCHECKER_CHS")
 
@@ -18,6 +24,7 @@ if not exist "%appListPortraits%" (set "failReason2=1"&goto CheckFailScreen)
 if not exist "%appListSurvivors%" (set "failReason2=1"&goto CheckFailScreen)
 if not exist "%appListSurvivorsAnims%" (set "failReason2=1"&goto CheckFailScreen)
 if not exist "%appListWeapons%" (set "failReason2=1"&goto CheckFailScreen)
+
 :: Check if VPK is occupied by other process 1st time
 rename %file% "%fileNameWithExt%">nul 2>nul
 if "%errorlevel%" == "1" (set "failReason3=1"&goto CheckFailScreen)
@@ -110,12 +117,29 @@ set "vpkMDLValid=1"
 set "vpkWeaponsExist=1"
 
 :: Get Portraits
+copy /y "%appPortraitsVTFFPSDef%" "%outputPortraitsVTFFPS%">nul 2>nul
 for /f "usebackq tokens=1,2 delims=," %%a in ("%appListPortraits%") do (
 	set "vtfFileType=%%b"
 	set "file=%%a"
 	set "vmtFile=%vpkExtractPath%\!file!.vmt"
 	set "vtfFile=%vpkExtractPath%\!file!.vtf"
 	set "vmtFileOriginalName=!vmtFile:%vpkExtractPath%\materials\vgui\=!"
+	set "vmtFileOriginalName=!vmtFileOriginalName:.vmt=!"
+	
+	:: Get framerate if dynamic
+	if exist !vmtFile! (
+	for /f "tokens=2" %%j in ('findstr /i "animatedTextureFrameRate" "!vmtFile!"') do (
+		set "vtfFPS=%%j"
+		set "vtfFPS=!vtfFPS:"=!"
+		set "vtfFPS=!vtfFPS: "=!"
+		set "vtfFPS=!vtfFPS:%ptab%"=!"
+		)
+		if not defined vtfFPS (set "vtfFPS=0.00")
+		echo !vtfFileType!,!vtfFPS!>>"%outputPortraitsVTFFPS%"
+		:: Delete animatedTextureVar lines
+		findstr /v /i "animatedTextureVar" "!vmtFile!">>"%vpkExtractPath%\materials\!vmtFileOriginalName!.tmp"
+		move /y "%vpkExtractPath%\materials\!vmtFileOriginalName!.tmp" "!vmtFile!"
+	)
 	:: Use $basetexture path firstly, fallback using default path
 	for /f "tokens=2" %%i in ('findstr /i "$basetexture" "!vmtFile!"') do (
 		set "vtfFile=%%i"
@@ -123,13 +147,11 @@ for /f "usebackq tokens=1,2 delims=," %%a in ("%appListPortraits%") do (
 		set "vtfFile=!vtfFile:/=\!"
 		set "vtfFile=!vtfFile:.vtf=!"
 		set "vtfFile=%vpkExtractPath%\materials\!vtfFile!.vtf"
-	)>nul 2>nul
+	)
 	copy /y "!vtfFile!" "%portraitsFolder%\!vtfFileType!.vtf"
 	)>nul 2>nul
-
-:: Replace L with S, if L not exist
+:: L and S substitute with each other, if one of them absents
 if not exist "%portraitsFolder%\l.vtf" (copy /y "%portraitsFolder%\s.vtf" "%portraitsFolder%\l.vtf")>nul 2>nul
-:: Replace S with L, if S not exist
 if not exist "%portraitsFolder%\s.vtf" (copy /y "%portraitsFolder%\l.vtf" "%portraitsFolder%\s.vtf")>nul 2>nul
 
 if not exist "%portraitsFolder%\i.vtf" (set "vpkPortraitsExist=0")
@@ -144,7 +166,7 @@ copy /y "%vpkExtractPath%\addonimage.jpg" "%materialsFolder%\">nul 2>nul
 
 :: Get Models
 :: Clear Previous Config
-rd /s /q "%APPDATA%\ZeqMacaw\CrowbarDecompiler 0.71">nul 2>nul
+rd /s /q "%APPDATA%\ZeqMacaw\CrowbarDecompiler 0.74">nul 2>nul
 :: Clear 1_main.qci
 del /s "%survivorsFolder%\1_main.qci">nul 2>nul
 del /s "%weaponsFolder%\1_main.qci">nul 2>nul
