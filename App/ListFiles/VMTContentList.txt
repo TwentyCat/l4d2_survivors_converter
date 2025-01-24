@@ -7,4 +7,13 @@
 	"$no_fullbright"	"1"
 	"$ignorez"	"1"
 	"$additive"	"0"
+	"Proxies"
+	{
+		"AnimatedTexture"
+		{
+		"animatedTextureVar"	"$basetexture"
+		"animatedTextureFrameNumVar"	"$frame"
+;		"animatedTextureFrameRate"	""
+		}
+	}
 }

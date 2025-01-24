@@ -31,16 +31,20 @@ set "appWeaponsFolder=%appFolder%\Weapons"
 set "appGameFolder=%appFolder%\Game"
 set "appBinFolder=%appGameFolder%\bin"
 set "appBinNekoMDLFolder=%appGameFolder%\bin_nekomdl"
-set "appBinExec=%appBinFolder%\studiomdl.exe"
-set "appBinNekoMDLExec=%appBinNekoMDLFolder%\nekomdl.exe"
+set "appBinExec=%appBinFolder%\studiomdl_8tools.exe"
+set "appBinNekoMDLExec=%appBinNekoMDLFolder%\nekomdl_8tools.exe"
 set "appConfig=%appFolder%\config.ini"
 set "appConfigDef=%appFolder%\config_default.ini"
+set "appPortraitsVTFFPSDef=%appFolder%\VTFframerate_default.ini"
 set "appConfigSaveString=empty"
 set "appCompileCommand=%appFolder%\COMPILE_COMMANDS.bat"
 set "appLogErrorTXT=%logsFolder%\ERRORLOG.log"
 
 set "outputFolderSurvivors=%appGameFolder%\left4dead2\models\survivors"
 set "outputFolderWeapons=%appGameFolder%\left4dead2\models\weapons\arms"
+set "outputPortraitsVTFFPS=%portraitsFolder%\VTFframerate.ini"
+
+set "ptab=	"
 
 :: Load UI Strings
 if not defined toolPath (cd..&set "toolPath=!cd!\")

@@ -1,8 +1,8 @@
 ;Version
-version=2.5.2
-versionDate=20241214
+version=2.5.3
+versionNekoMDL=2.1.3
+versionDate=20250124
 versionBin=20241025°æ
-versionNekoMDL=2.1.2
 ;Generate Information
 uiGInfo0=´ý¶¨
 uiGInfo1=Äá¿Ë Nick

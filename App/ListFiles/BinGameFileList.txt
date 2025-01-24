@@ -3,8 +3,8 @@ materialsystem.dll
 mdllib.dll
 shaderapidx9.dll
 shaderapiempty.dll
-studiomdl.exe
 studiorender.dll
 tier0.dll
 vphysics.dll
 vstdlib.dll
+studiomdl_8tools.exe

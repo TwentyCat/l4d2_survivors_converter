@@ -1,5 +1,5 @@
 ;Version
-versionDate=Dec 14, 2024
+versionDate=Jan 24, 2025
 ;Screen_Welcome
 uiWelcomeTitle=Auto Placing (%versionDate%)
 uiWelcome0=	To use this tool, it will perform cleanup first.
